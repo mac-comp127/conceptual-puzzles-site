@@ -6,6 +6,8 @@ class Attempt < ApplicationRecord
   validates :content, presence: true, unless: :queued?
   validates :score, presence: true, if: :graded?
 
+  scope :recent, -> { order(updated_at: :desc) }
+
   AttemptState.all.each do |possible_state|
     define_method "#{possible_state}?" do
       state == possible_state

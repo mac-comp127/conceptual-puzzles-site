@@ -1,2 +1,18 @@
-%h1 Home#show
-%p Find me in app/views/home/show.html.haml
+%nav.nav-top
+  .username
+    Logged in as:
+    %b= current_student.email
+
+%main
+  %h1 Conceptual Mastery Puzzles
+
+  .puzzle-status-overview
+    - puzzle_statuses(current_student).each do |status|
+      .puzzle-status
+        .puzzle-type
+          .name= status.puzzle_type.name
+          .desc= status.puzzle_type.description
+        .status.score
+          = status.current_score
+        .status.attempt-state
+          = status.status
