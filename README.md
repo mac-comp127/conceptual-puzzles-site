@@ -1,24 +1,25 @@
-# README
+# Conceptual Mastery Puzzle web interface
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Manages the COMP 127 Conceptual Mastery Puzzle process:
 
-Things you may want to cover:
+- Students can request official puzzle attempts.
+- Instructors can enter grades for attempts.
+- Students and instructors can view grading status for each puzzle type.
 
-* Ruby version
 
-* System dependencies
+## Quick usage notes
 
-* Configuration
+Setup:
 
-* Database creation
+    rails db:create
+    rails db:seed
 
-* Database initialization
+Create local test data:
 
-* How to run the test suite
+    rails db:fake:all
 
-* Services (job queues, cache servers, search engines, etc.)
+Run app in dev mode:
 
-* Deployment instructions
+    bin/dev
 
-* ...
+    test_student_id=1 bin/dev  # fake user login in dev environment

@@ -103,6 +103,7 @@ GEM
       reline (>= 0.3.8)
     drb (2.2.1)
     erubi (1.13.0)
+    ffaker (2.23.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
     google-protobuf (4.28.2)
@@ -337,6 +338,7 @@ DEPENDENCIES
   capybara
   dartsass-rails (~> 0.5.1)
   debug
+  ffaker (~> 2.23)
   haml-rails (~> 2.1)
   importmap-rails
   jbuilder
