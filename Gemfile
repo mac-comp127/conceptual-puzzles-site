@@ -54,3 +54,5 @@ group :test do
 end
 
 gem "haml-rails", "~> 2.1"
+
+gem "dartsass-rails", "~> 0.5.1"
