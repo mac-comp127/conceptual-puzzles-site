@@ -6,6 +6,8 @@ class Attempt < ApplicationRecord
   validates :content, presence: true, unless: :queued?
   validates :score, presence: true, if: :graded?
 
+  after_create :generate_puzzle!
+
   scope :recent, -> { order(updated_at: :desc) }
 
   AttemptState.all.each do |possible_state|
@@ -13,4 +15,9 @@ class Attempt < ApplicationRecord
       state == possible_state
     end
   end
+
+  def generate_puzzle!
+    GeneratePuzzleJob.enqueue(attempt_id: id)
+  end
+
 end
