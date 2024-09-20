@@ -37,5 +37,8 @@ module ConceptualPuzzlesSite
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.session_store :cookie_store, expire_after: 24.hours
+
+    config.active_job.queue_adapter = :que
+    config.active_record.schema_format = :sql  # que requires this
   end
 end

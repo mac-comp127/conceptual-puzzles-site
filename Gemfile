@@ -22,10 +22,14 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
+# View template languages
 gem "haml-rails", "~> 2.1"
 gem "dartsass-rails", "~> 0.5.1"
 
-# For Google login:
+# Background jobs
+gem "que", "~> 2.4"
+
+# Google login
 gem "omniauth-google-oauth2", "~> 1.2"
 gem "omniauth-rails_csrf_protection", "~> 1.0"
 
@@ -53,4 +57,3 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
-
