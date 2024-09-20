@@ -17,11 +17,8 @@
   </head>
 
   <body>
-    <% flash.each do |type, msg| %>
-      <div class="flash flash-<%= type %>">
-        <%= msg %>
-      </div>
-    <% end %>
+    <%= render "layouts/nav_top" %>
+    <%= render "layouts/flash" %>
 
     <%= yield %>
   </body>

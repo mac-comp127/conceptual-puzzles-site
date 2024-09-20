@@ -7,8 +7,27 @@ body, html
 
 .nav-top
   background: #c7d8f4
-  padding: 0.4em 0.8em
-  text-align: right
+  padding: 0.5em 1em
+  display: flex
+  gap: 0.5em
+  justify-content: right
+  align-items: center
+  .avatar
+    width: 2em
+
+.flash
+  margin: 2em 4em
+  padding: 1em 2em
+  border-radius: 1em
+  border: 1px solid
+  font-weight: 500
+  font-size: 125%
+  &.notice
+    border-color: #080
+    background: #efe
+  &.error
+    border-color: #f00
+    background: #ffe
 
 a.button
   border-radius: 0.5em
