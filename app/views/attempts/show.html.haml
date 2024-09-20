@@ -1,0 +1,9 @@
+%main.puzzle
+  .status
+    Status:
+    = describe_attempt_state(@attempt.state)
+    - if @attempt.score
+      = describe_attempt_score(@attempt.score)
+
+  - if @attempt.content?
+    = @attempt.content.html_safe

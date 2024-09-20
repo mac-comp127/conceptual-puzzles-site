@@ -2,12 +2,24 @@
   %h1 Conceptual Mastery Puzzles
 
   .puzzle-status-overview
-    - puzzle_statuses(current_student).each do |status|
+    - current_student.puzzle_statuses.each do |status|
       .puzzle-status
         .puzzle-type
           .name= status.puzzle_type.name
           .desc= status.puzzle_type.description
-        .status.score
-          = status.current_score
-        .status.attempt-state
-          = status.status
+        .info.score
+          = describe_attempt_score(status.score)
+
+        .info.attempt
+          - if latest_state = status.latest_attempt&.state
+            Latest attempt:
+            .state{class: latest_state}
+              = describe_attempt_state(latest_state)
+            - if [AttemptState.available, AttemptState.graded].include?(latest_state)
+              %a{href: attempt_path(status.latest_attempt)} View puzzle
+
+          - if status.new_attempt_allowed
+            .action
+              = form_for Attempt.new do |f|
+                = f.hidden_field :puzzle_type, value: status.puzzle_type.id
+                = f.submit("Make an attempt")

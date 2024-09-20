@@ -7,18 +7,18 @@ body, html
 
 .nav-top
   background: #c7d8f4
-  padding: 0.5em 1em
+  padding: 0.5rem 1rem
   display: flex
-  gap: 0.5em
+  gap: 0.5rem
   justify-content: right
-  align-items: center
+  align-itrems: center
   .avatar
-    width: 2em
+    width: 2rem
 
 .flash
-  margin: 2em 4em
-  padding: 1em 2em
-  border-radius: 1em
+  margin: 2rem 4rem
+  padding: 1rem 2rem
+  border-radius: 1rem
   border: 1px solid
   font-weight: 500
   font-size: 125%
@@ -29,44 +29,60 @@ body, html
     border-color: #f00
     background: #ffe
 
-a.button
-  border-radius: 0.5em
-  padding: 0.5em 1em
-  background: #44f
-  color: white
+button, a.button, input[type=submit]
+  background: white
+  color: #44f
+  border: 0.5px solid #44f
+  border-radius: 0.5rem
+  margin: 0.25rem 0
+  padding: 0rem 0.5rem
+  text-align: center
+  &.big
+    background: #44f
+    color: white
+    padding: 0.5rem 1rem
+    font-weight: 500
   text-decoration: none !important
+  font: inherit
   &:active
     background: #006
+    color: white
 
 main
-  margin: 1em
+  margin: 1rem
   &.center-hero
-    max-width: 24em
+    max-width: 24rem
     margin: 0 auto
     height: 67vh
     display: flex
     flex-direction: column
-    align-items: center
+    align-itrems: center
     justify-content: center
 
 .puzzle-status-overview
   .puzzle-status
-    margin: 1.5em 0
+    margin: 1.5rem 0
 
     .puzzle-type
-      margin: 0.5em 0
+      margin: 0.5rem 0
       display: flex
       align-items: first baseline
       .name, .desc
         font-weight: 500
       .name
-        background: #646abc
-        color: white
-        padding: 0.1em 0
-        border-radius: 0.5em
-        margin-right: 0.5em
-        width: 5em
-        text-align: center
+        color: #646abc
+        padding: 0.1rem 0
+        border-radius: 0.5rem
+        margin-right: 1rem
+        width: 5rem
+        font-size: 125%
+        text-align: right
 
-    .status
-      margin-left: 5.5em
+    .info
+      margin-left: 6rem
+      .state
+        font-weight: bold
+        display: inline
+        margin-right: 0.5em
+      .action
+        display: block
