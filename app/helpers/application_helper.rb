@@ -1,15 +1,6 @@
 PuzzleStatus = Data.define(:puzzle_type, :current_score, :status)
 
 module ApplicationHelper
-  def current_student
-    @current_student ||=
-      if Rails.env.development? && !ENV['test_student_id'].blank?
-        Student.find(ENV['test_student_id'].to_i)
-      else
-        raise "no student logged in"
-      end
-  end
-
   def puzzle_statuses(student)
     PuzzleType.enabled.map do |puzzle_type|
       attempts = student.attempts.where(puzzle_type:)
