@@ -1,7 +1,11 @@
 class HomeController < ApplicationController
-  before_action :require_student_login!
-
   def show
-    puts helpers.current_student
+    redirect_to(
+      if current_student
+        attempts_path
+      else
+        login_path
+      end
+    )
   end
 end

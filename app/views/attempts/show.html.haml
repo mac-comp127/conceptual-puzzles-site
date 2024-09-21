@@ -1,4 +1,4 @@
-%a{href: root_path} < Home
+%a{href: attempts_path} < Home
 
 %main.puzzle
   .status
@@ -7,7 +7,7 @@
     - if @attempt.score
       = describe_attempt_score(@attempt.score)
 
-  - if @attempt.solution_html?
+  - if @attempt.graded? && @attempt.solution_html?
     %iframe.puzzle-content{srcdoc: @attempt.solution_html}
   - elsif @attempt.problem_html?
     %iframe.puzzle-content{srcdoc: @attempt.problem_html}

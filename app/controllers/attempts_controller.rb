@@ -1,6 +1,9 @@
 class AttemptsController < ApplicationController
   before_action :require_student_login!
 
+  def index
+  end
+
   def create
     Attempt.transaction do
       puzzle_type = PuzzleType.find(params[:attempt][:puzzle_type])
