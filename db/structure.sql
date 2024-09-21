@@ -264,10 +264,12 @@ CREATE TABLE public.attempts (
     student_id bigint NOT NULL,
     puzzle_type_id bigint NOT NULL,
     state public.attempt_state DEFAULT 'queued'::public.attempt_state NOT NULL,
-    content text,
+    problem_html text,
     score public.attempt_score,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    solution_html text,
+    generator_log text
 );
 
 
@@ -591,6 +593,7 @@ ALTER TABLE ONLY public.attempts
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240921054117'),
 ('20240920061447'),
 ('20240920035725'),
 ('20240919172442');

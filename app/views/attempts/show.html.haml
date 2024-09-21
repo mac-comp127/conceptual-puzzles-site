@@ -7,8 +7,10 @@
     - if @attempt.score
       = describe_attempt_score(@attempt.score)
 
-  - if @attempt.content?
-    = @attempt.content.html_safe
+  - if @attempt.solution_html?
+    %iframe.puzzle-content{srcdoc: @attempt.solution_html}
+  - elsif @attempt.problem_html?
+    %iframe.puzzle-content{srcdoc: @attempt.problem_html}
 
 
 - if @attempt.queued?

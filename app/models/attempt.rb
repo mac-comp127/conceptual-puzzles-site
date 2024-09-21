@@ -2,8 +2,10 @@ class Attempt < ApplicationRecord
   belongs_to :student
   belongs_to :puzzle_type
 
-  validates :content, absence: true, if: :queued?
-  validates :content, presence: true, unless: :queued?
+  %i(problem_html solution_html).each do |content|
+    validates content, absence: true, if: :queued?
+    validates content, presence: true, unless: :queued?
+  end
   validates :score, presence: true, if: :graded?
 
   after_create :generate_puzzle!
