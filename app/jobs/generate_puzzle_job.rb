@@ -9,4 +9,8 @@ class GeneratePuzzleJob < ApplicationJob
       attempt.save!
     end
   end
+
+  def log_level(elapsed)
+    :info
+  end
 end
