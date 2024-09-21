@@ -1,3 +1,5 @@
+%a{href: root_path} < Home
+
 %main.puzzle
   .status
     Status:
@@ -7,3 +9,7 @@
 
   - if @attempt.content?
     = @attempt.content.html_safe
+
+
+- if @attempt.queued?
+  .autoreload
