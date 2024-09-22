@@ -4,7 +4,7 @@ function findExpandingIframes() {
 
 function resizeIframes() {
   for (let iframe of findExpandingIframes()) {
-    iframe.style.height = iframe.contentWindow.document.documentElement.scrollHeight + 'px';
+    iframe.style.height = (iframe.contentWindow.document.documentElement.scrollHeight + 50) + 'px';
   }
 };
 
