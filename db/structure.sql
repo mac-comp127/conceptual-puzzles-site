@@ -28,7 +28,8 @@ CREATE TYPE public.attempt_state AS ENUM (
     'queued',
     'available',
     'submitted',
-    'graded'
+    'graded',
+    'generator_failed'
 );
 
 
@@ -593,6 +594,7 @@ ALTER TABLE ONLY public.attempts
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240922042931'),
 ('20240921054117'),
 ('20240920061447'),
 ('20240920035725'),

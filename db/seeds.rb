@@ -9,6 +9,6 @@ PuzzleType.transaction do
     loop: "While loops and for loops",
     vars: "Variable scope and lifetime",
   }.each do |name, description|
-    PuzzleType.find_or_initialize_by(name:).update!(description:)
+    PuzzleType.find_or_initialize_by(name:).update!(description:, enabled: true)
   end
 end

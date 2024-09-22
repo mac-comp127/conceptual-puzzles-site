@@ -3,7 +3,10 @@ require 'Open3'
 class GeneratePuzzleJob < ApplicationJob
   PUZZLE_DIR_ENV_KEY = 'conceptual_puzzles_generator_home'
 
+  self.retry_interval = 3
+
   def run(attempt_id:)
+    output = ""
     Attempt.transaction do
       attempt = Attempt.find(attempt_id)
       raise "Cannot generate attempt when state is #{attempt.state}" unless attempt.queued?
@@ -13,7 +16,7 @@ class GeneratePuzzleJob < ApplicationJob
           puzzle_dir = Pathname.new(
             ENV[PUZZLE_DIR_ENV_KEY] || raise("Env var missing: #{PUZZLE_DIR_ENV_KEY}"))
           
-          output = system_cmd(
+          output += system_cmd(
             (puzzle_dir + "bin/puzzle").to_s,
             "gen", attempt.puzzle_type.name,
             "--html", problem_file.path,
@@ -23,6 +26,10 @@ class GeneratePuzzleJob < ApplicationJob
             "git", "--git-dir", (puzzle_dir + ".git").to_s, "log", "-1"
           )
 
+          if File.empty?(problem_file) || File.empty?(solution_file)
+            raise "Puzzle generator did not produce output files"
+          end
+
           attempt.problem_html = File.read(problem_file)
           attempt.solution_html = File.read(solution_file)
           attempt.generator_log = output
@@ -31,6 +38,15 @@ class GeneratePuzzleJob < ApplicationJob
 
       attempt.state = AttemptState.available
       attempt.save!
+
+      destroy
+    rescue => e
+      output += "\n#{e.inspect}\n#{e.backtrace.join("\n")}"
+      attempt.state = AttemptState.generator_failed
+      attempt.generator_log = output
+      attempt.save!
+
+      expire
     end
   end
 

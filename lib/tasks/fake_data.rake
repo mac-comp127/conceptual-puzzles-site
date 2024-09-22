@@ -28,9 +28,12 @@ namespace :db do
             .update!(state: AttemptState.graded, score: AttemptScore.all.sample)
 
           student.attempts.create!(
+            state: AttemptState.queued,
             puzzle_type: puzzle_types.sample,
+          ).update!(
             state: AttemptState.available,
-            content: FFaker::Lorem.paragraph,
+            problem_html: FFaker::Lorem.paragraph,
+            solution_html: FFaker::Lorem.paragraph,
           )
         end
       end

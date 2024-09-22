@@ -4,6 +4,8 @@
   .status
     Status:
     = describe_attempt_state(@attempt.state)
+    - if @attempt.generator_failed?
+      = render 'generator_failed', attempt: @attempt
     - if @attempt.score
       = describe_attempt_score(@attempt.score)
 

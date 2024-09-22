@@ -132,6 +132,11 @@ iframe
     border-color: var(--error-color)
     background: color-mix(in srgb, var(--error-color) 10%, var(--background-color))
 
+.mini-flash.error
+  border-left: var(--grid1⁄2) solid var(--error-color)
+  padding-left: var(--grid1⁄2)
+  color: color-mix(in srgb, var(--error-color) 50%, var(--text-color))
+
 button, a.button, input[type=submit]
   background: var(--background-hot-color)
   color: var(--action-color)
@@ -174,7 +179,7 @@ main
   .puzzle-status
     padding: var(--grid1) 0
     border: 0 solid var(--meta-background)
-    border-width: 1px 0
+    border-width: 0.5px 0
     margin: -1px 0
 
     .puzzle-type

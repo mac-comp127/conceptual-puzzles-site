@@ -3,8 +3,8 @@ class Attempt < ApplicationRecord
   belongs_to :puzzle_type
 
   %i(problem_html solution_html).each do |content|
-    validates content, absence: true, if: :queued?
-    validates content, presence: true, unless: :queued?
+    validates content, absence: true, unless: :generated?
+    validates content, presence: true, if: :generated?
   end
   validates :score, presence: true, if: :graded?
 
@@ -16,6 +16,10 @@ class Attempt < ApplicationRecord
     define_method "#{possible_state}?" do
       state == possible_state
     end
+  end
+
+  def generated?
+    !(queued? || generator_failed?)
   end
 
   def generate_puzzle!

@@ -14,7 +14,10 @@ class Student < ApplicationRecord
       puzzle_type:,
       score: attempts_for_type.where(state: :graded).maximum(:score),
       latest_attempt:,
-      new_attempt_allowed: [AttemptState.graded, nil].include?(latest_attempt&.state)
+      new_attempt_allowed: (
+        [AttemptState.graded, AttemptState.generator_failed, nil].include?(latest_attempt&.state) &&
+        latest_attempt&.score != AttemptScore.full_credit
+      )
     ]
   end
 end

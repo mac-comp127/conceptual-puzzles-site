@@ -17,12 +17,14 @@
               = describe_attempt_state(latest_state)
             - if AttemptState.queued == latest_state
               .autoreload
-        - if [AttemptState.available, AttemptState.graded].include?(latest_state)
-          .info.view
-            %a{href: attempt_path(status.latest_attempt)} View puzzle
+            - if [AttemptState.available, AttemptState.graded].include?(latest_state)
+              %a{href: attempt_path(status.latest_attempt)} View puzzle
+
+        - if status.latest_attempt&.generator_failed?
+          .info= render 'generator_failed', attempt: status.latest_attempt
 
         - if status.new_attempt_allowed
           .info.action
             = form_for Attempt.new do |f|
               = f.hidden_field :puzzle_type, value: status.puzzle_type.id
-              = f.submit("Make an attempt")
+              = f.submit("New attempt")
