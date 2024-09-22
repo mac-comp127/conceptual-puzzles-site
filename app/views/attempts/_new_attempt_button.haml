@@ -1,0 +1,4 @@
+.info.action
+  = form_for Attempt.new do |f|
+    = f.hidden_field :puzzle_type, value: puzzle_type.id
+    = f.submit("Make new attempt")

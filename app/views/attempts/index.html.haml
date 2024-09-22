@@ -24,7 +24,4 @@
           .info= render 'generator_failed', attempt: status.latest_attempt
 
         - if status.new_attempt_allowed
-          .info.action
-            = form_for Attempt.new do |f|
-              = f.hidden_field :puzzle_type, value: status.puzzle_type.id
-              = f.submit("New attempt")
+          = render "new_attempt_button", puzzle_type: status.puzzle_type

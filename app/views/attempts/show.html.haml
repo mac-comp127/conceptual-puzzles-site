@@ -9,8 +9,13 @@
     - if attempt.generator_failed?
       = render 'generator_failed', attempt: attempt
 
-    - if attempt.score
-      = describe_attempt_score(attempt.score)
+  - if attempt.graded?
+    .status
+      Score:
+      .status-message= describe_attempt_score(attempt.score)
+
+    - if new_attempt_allowed?
+      = render "new_attempt_button", puzzle_type: attempt.puzzle_type
 
   - if attempt.available?
     .instructions
@@ -38,7 +43,7 @@
           %a{href: 'https://docs.google.com/document/d/1K0GU7oRlr4zc1sDyFke6WHvnIkAf2FEFQ7Xw1potQog/edit#heading=h.9egbd7py1dat'} Full instructions for puzzles 
 
   - if attempt.graded? && attempt.solution_html?
-    %h2 Solution
+    %h2 Correct Solution
     %iframe.puzzle-content.expand-to-content-height{srcdoc: attempt.solution_html}
   - elsif attempt.problem_html?
     %h2 Puzzle

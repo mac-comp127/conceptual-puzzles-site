@@ -26,6 +26,16 @@ class AttemptsController < ApplicationController
     end
   end
 
+private
+
   attr_reader :attempt
   helper_method :attempt
+
+  def new_attempt_allowed?
+    current_student == attempt.student &&
+      attempt.student
+        .puzzle_status_for(puzzle_type: attempt.puzzle_type)
+        .new_attempt_allowed
+  end
+  helper_method :new_attempt_allowed?
 end
