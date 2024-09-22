@@ -21,7 +21,7 @@ document.addEventListener("turbo:load", (event) => {
                 refreshTimer = null;
                 Turbo.visit(event.detail.url);
             },
-            1000
+            2000
         );
     }
 });

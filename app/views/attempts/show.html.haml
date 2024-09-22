@@ -3,7 +3,8 @@
 %main.puzzle
   .status
     Status:
-    .status-message= describe_attempt_state(attempt.state)
+    .status-message{class: ("loading-indicator" if attempt.queued?)}
+      = describe_attempt_state(attempt.state)
 
     - if attempt.generator_failed?
       = render 'generator_failed', attempt: attempt
