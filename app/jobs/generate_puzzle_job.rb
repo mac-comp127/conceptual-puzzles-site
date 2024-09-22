@@ -3,8 +3,6 @@ require 'Open3'
 class GeneratePuzzleJob < ApplicationJob
   PUZZLE_DIR_ENV_KEY = 'conceptual_puzzles_generator_home'
 
-  self.retry_interval = 3
-
   def run(attempt_id:)
     output = ""
     Attempt.transaction do
@@ -37,10 +35,13 @@ class GeneratePuzzleJob < ApplicationJob
       end
 
       attempt.state = AttemptState.available
+      attempt.generate_lookup_code!
       attempt.save!
 
       destroy
     rescue => e
+      raise unless attempt  # Failures get logged to attempt record only if available
+
       output += "\n#{e.inspect}\n#{e.backtrace.join("\n")}"
       attempt.state = AttemptState.generator_failed
       attempt.generator_log = output
