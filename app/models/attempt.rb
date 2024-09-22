@@ -18,6 +18,15 @@ class Attempt < ApplicationRecord
     end
   end
 
+  # The lookup code we give students is the attempt ID plus a few random check digits to catch
+  # human transcription errors.
+  #
+  def generate_lookup_code!
+    check_digit_mult = 10 ** CHECK_DIGIT_COUNT
+    self.lookup_code = self.id * check_digit_mult + rand(check_digit_mult)
+  end
+  CHECK_DIGIT_COUNT = 2
+
   def generated?
     !(queued? || generator_failed?)
   end
@@ -25,5 +34,4 @@ class Attempt < ApplicationRecord
   def generate_puzzle!
     GeneratePuzzleJob.enqueue(attempt_id: id)
   end
-
 end

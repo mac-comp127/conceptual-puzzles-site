@@ -270,7 +270,8 @@ CREATE TABLE public.attempts (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     solution_html text,
-    generator_log text
+    generator_log text,
+    lookup_code character varying
 );
 
 
@@ -509,6 +510,13 @@ ALTER TABLE ONLY public.students
 
 
 --
+-- Name: index_attempts_on_lookup_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_attempts_on_lookup_code ON public.attempts USING btree (lookup_code);
+
+
+--
 -- Name: index_attempts_on_puzzle_type_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -594,6 +602,7 @@ ALTER TABLE ONLY public.attempts
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240922174142'),
 ('20240922042931'),
 ('20240921054117'),
 ('20240920061447'),
