@@ -3,17 +3,46 @@
 %main.puzzle
   .status
     Status:
-    = describe_attempt_state(@attempt.state)
-    - if @attempt.generator_failed?
-      = render 'generator_failed', attempt: @attempt
-    - if @attempt.score
-      = describe_attempt_score(@attempt.score)
+    .status-message= describe_attempt_state(attempt.state)
 
-  - if @attempt.graded? && @attempt.solution_html?
-    %iframe.puzzle-content{srcdoc: @attempt.solution_html}
-  - elsif @attempt.problem_html?
-    %iframe.puzzle-content{srcdoc: @attempt.problem_html}
+    - if attempt.generator_failed?
+      = render 'generator_failed', attempt: attempt
+
+    - if attempt.score
+      = describe_attempt_score(attempt.score)
+
+  - if attempt.available?
+    .instructions
+      %h2 Instructions
+      %ul
+        %li Write your solution <b>on paper</b>.
+        %li
+          Please write the following in the <b>upper right corner</b> of your submission:
+          .callout
+            .callout-content
+              .line
+                = attempt.student.name || attempt.student.email.sub(/@macalester\.edu/, '')
+              .line
+                Puzzle
+                = attempt.lookup_code
+        %li
+          Submit <i>exactly</i> what the problem asks you to submit. Follow exactly the same format as the solutions the puzzle generator gave you for your practice attempts.
+        %li
+          Do not work with other students or preceptors <b>at all</b> for official puzzle attempts.
+        %li
+          You may use a calculator to help you with arithmetic. You may look at your solutions to practice puzzles. Other than those two exceptions, do not use the computer or your notes <b>at all</b> for official puzzle attempts. No copying in or typing in code, no running code, no web searches, no AI, no documentation. The goal is to solve these puzzles strictly <b>in your own head</b> and <b>on paper</b>.
+        %li
+          Hand in your paper solution to your instructor.
+        %li
+          %a{href: 'https://docs.google.com/document/d/1K0GU7oRlr4zc1sDyFke6WHvnIkAf2FEFQ7Xw1potQog/edit#heading=h.9egbd7py1dat'} Full instructions for puzzles 
+
+  - if attempt.graded? && attempt.solution_html?
+    %h2 Solution
+    %iframe.puzzle-content{srcdoc: attempt.solution_html}
+  - elsif attempt.problem_html?
+    %h2 Puzzle
+    %iframe.puzzle-content{srcdoc: attempt.problem_html}
 
 
-- if @attempt.queued?
+- if attempt.queued?
   .autoreload

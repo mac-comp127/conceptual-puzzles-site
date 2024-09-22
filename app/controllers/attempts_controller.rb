@@ -25,4 +25,7 @@ class AttemptsController < ApplicationController
       redirect_to root_url
     end
   end
+
+  attr_reader :attempt
+  helper_method :attempt
 end

@@ -2,6 +2,10 @@
   @media all and (max-width: $width)
     @content
 
+@mixin responsive-above($width)
+  @media all and (min-width: $width)
+    @content
+
 html
   --grid1: 1.2rem
 
@@ -9,6 +13,7 @@ html
   --grid1⁄3: calc(var(--grid1) * 1/3)
   --grid1⁄2: calc(var(--grid1) * 1/2)
   --grid3⁄4: calc(var(--grid1) * 3/4)
+  --grid5⁄4: calc(var(--grid1) * 5/4)
   --grid3⁄2: calc(var(--grid1) * 3/2)
   @for $mult from 2 through 20
     --grid#{$mult}: calc(var(--grid1) * #{$mult})
@@ -88,6 +93,7 @@ p
 h1, h2, h3, h4, h5, h6
   padding: 0
   margin: var(--grid1) 0 var(--grid1⁄2) 0
+  color: var(--meta-text-color)
 
 h1
   font-size: var(--h1-font-size)
@@ -103,6 +109,15 @@ ul
 ul, ol, li
   margin: 0
   padding: 0
+
+@mixin bullet-list
+  list-style-type: disc
+  margin-left: var(--grid1)
+  li::marker
+    color: var(--meta-text-color)
+  li
+    line-height: var(--grid5⁄4)
+    margin: var(--grid1⁄2) 0
 
 iframe
   border: none
@@ -203,6 +218,32 @@ main
         font-weight: bold
         display: inline
         margin-right: var(--grid1)
+
+.puzzle
+  .status
+    color: var(--meta-text-color)
+    .status-message
+      display: inline-block
+      font-weight: 700
+      color: var(--text-color)
+  .instructions
+    $max-col-width: 32rem
+    ul
+      @include bullet-list
+      max-width: $max-col-width
+      @include responsive-above($max-col-width * 1.5)
+        max-width: $max-col-width * 2
+        columns: 2
+        li
+          break-inside: avoid-column
+    .callout-content
+      display: inline-block
+      background: var(--meta-background)
+      border: 1px solid var(--meta-text-color)
+      border-radius: var(--grid1⁄4)
+      margin: var(--grid1⁄4) 0
+      padding: var(--grid1⁄2)
+      font-weight: 500
 
 .puzzle-content
   width: 100%
