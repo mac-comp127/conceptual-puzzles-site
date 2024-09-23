@@ -4,6 +4,6 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   end
   provider :google_oauth2, require_env("GOOGLE_CLIENT_ID"), require_env("GOOGLE_CLIENT_SECRET")
 end
-OmniAuth.config.allowed_request_methods = %i[get]
+OmniAuth.config.allowed_request_methods = %i[post]
 
 OmniAuth::AuthenticityTokenProtection.default_options(key: "csrf.token", authenticity_param: "_csrf")
