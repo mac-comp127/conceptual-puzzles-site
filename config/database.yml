@@ -39,6 +39,6 @@ test:
 #
 production:
   <<: *default
-  database: conceptual_puzzles_site_production
-  username: conceptual_puzzles_site
+  database: conceptual_puzzles_site
+  username: ruby
   password: <%= ENV["CONCEPTUAL_PUZZLES_SITE_DATABASE_PASSWORD"] %>
