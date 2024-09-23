@@ -1,4 +1,4 @@
-require 'Open3'
+require 'open3'
 
 class GeneratePuzzleJob < ApplicationJob
   PUZZLE_DIR_ENV_KEY = 'conceptual_puzzles_generator_home'
