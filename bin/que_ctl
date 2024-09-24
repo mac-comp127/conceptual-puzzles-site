@@ -19,6 +19,8 @@ function start() {
   fi
   echo "que executable: $que"
 
+  export conceptual_puzzles_generator_home=/home/ruby/apps/conceptual-puzzles
+
   cd "$app_dir"
   mkdir -p tmp/pids
   echo $$ > "$app_dir"/tmp/pids/que.pid
