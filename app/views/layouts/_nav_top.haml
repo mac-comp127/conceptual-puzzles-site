@@ -1,9 +1,13 @@
 %nav.nav-top
-  - if current_student
-    .username
-      Logged in as:
-      %b= current_student.email
-    - if current_student_avatar
-      %img.avatar{src: current_student_avatar}
-    .logout
-      %a{href: logout_path} Log out
+  .nav
+    = yield :nav
+
+  .session
+    - if current_student
+      .username
+        Logged in as:
+        %b= current_student.email
+      - if current_student_avatar
+        %img.avatar{src: current_student_avatar}
+      .logout
+        %a{href: logout_path} Log out

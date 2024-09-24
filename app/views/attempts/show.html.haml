@@ -1,6 +1,8 @@
-%a{href: attempts_path} < Home
+= content_for :nav do
+  %a.back{href: attempts_path} All Puzzles
 
 %main.puzzle
+  %h1 Puzzle #{attempt.lookup_code}
   .status
     Status:
     .status-message{class: ("loading-indicator" if attempt.queued?)}

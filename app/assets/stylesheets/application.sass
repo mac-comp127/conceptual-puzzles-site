@@ -126,11 +126,23 @@ iframe
   background: var(--meta-background)
   padding: var(--grid1⁄2) var(--grid1)
   display: flex
-  gap: var(--grid1⁄2)
-  justify-content: right
-  align-itrems: center
-  .avatar
-    width: var(--grid2)
+  align-items: center
+  gap: var(--grid1)
+  justify-content: space-between
+  .session
+    // justify-content: right
+    display: flex
+    gap: var(--grid1⁄2)
+    align-items: center
+    .avatar
+      width: var(--grid2)
+
+.back
+  &:before
+    content: '❮'
+    margin-right: var(--grid1⁄2)
+    text-decoration: none
+    display: inline-block
 
 .flash
   margin: var(--grid2) var(--grid4)
