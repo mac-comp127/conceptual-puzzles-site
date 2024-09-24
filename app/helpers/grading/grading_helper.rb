@@ -1,0 +1,2 @@
+module Grading::GradingHelper
+end
