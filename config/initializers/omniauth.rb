@@ -7,3 +7,7 @@ end
 OmniAuth.config.allowed_request_methods = %i[post]
 
 OmniAuth::AuthenticityTokenProtection.default_options(key: "csrf.token", authenticity_param: "_csrf")
+
+OmniAuth.config.on_failure = Proc.new do |env|
+  raise(env['omniauth.error'] || OmniAuth::Error.new(env['omniauth.error.type']))
+end
