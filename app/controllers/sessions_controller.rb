@@ -15,12 +15,15 @@ class SessionsController < ApplicationController
       return redirect_to login_path
     end
 
+    user = Instructor.find_by(email: auth.info.email)
 
-    student = Student.find_or_initialize_by(email: auth.info.email)
-    student.name = auth.info.name
-    student.save!
+    unless user
+      user = Student.find_or_initialize_by(email: auth.info.email)
+      user.name = auth.info.name
+      user.save!
+    end
 
-    student_authenticated!(student, avatar_url: auth.info.image)
+    user_authenticated!(user, avatar_url: auth.info.image)
 
     redirect_to root_path
   end

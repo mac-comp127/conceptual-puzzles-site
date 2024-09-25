@@ -2,29 +2,53 @@ class ApplicationController < ActionController::Base
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
 
-  def require_student_login!
-    redirect_to login_path unless current_student
+  def require_login!(user_type)
+    if current_user&.is_a?(user_type)
+      @validated_user_type = user_type
+    else
+      redirect_to login_path
+    end
   end
 
-  def current_student
-    @current_student ||=
-      if Rails.env.development? && !ENV['test_student_id'].blank?
-        Student.find(ENV['test_student_id'].to_i)
-      elsif session[:student]
-        Student.find(session[:student])
-      else
-        nil
+  [Student, Instructor].each do |user_type|
+    method_name = :"current_#{user_type.name.downcase}"
+    define_method method_name do
+      unless @validated_user_type == user_type
+        raise "Cannot call #{method_name} without first calling require_login!(#{user_type})"
       end
+      unless current_user.is_a?(user_type)
+        raise "Current user #{user.class} does not match validated user type #{user_type}"
+      end
+      current_user
+    end
+    helper_method method_name
   end
-  helper_method :current_student
 
-  def current_student_avatar
-    session[:student_avatar]
+  def current_user
+    @current_user ||= lambda do
+      if Rails.env.development?
+        test_user = ENV["test_user"]
+        unless test_user.blank?
+          model, id = test_user.split(':')
+          return model.constantize.find(id)
+        end
+      end
+
+      user_type = session[:user_type]&.constantize
+      return nil unless [Instructor, Student].include?(user_type)
+      return user_type.find(session[:user])
+    end.call
   end
-  helper_method :current_student_avatar
+  helper_method :current_user
 
-  def student_authenticated!(student, avatar_url: nil)
-    session[:student] = student.id
-    session[:student_avatar] = avatar_url
+  def current_user_avatar
+    session[:user_avatar]
+  end
+  helper_method :current_user_avatar
+
+  def user_authenticated!(user, avatar_url: nil)
+    session[:user] = user.id
+    session[:user_type] = user.class.name
+    session[:user_avatar] = avatar_url
   end
 end

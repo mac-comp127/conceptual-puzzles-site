@@ -295,6 +295,37 @@ ALTER SEQUENCE public.attempts_id_seq OWNED BY public.attempts.id;
 
 
 --
+-- Name: instructors; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.instructors (
+    id bigint NOT NULL,
+    email character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: instructors_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.instructors_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: instructors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.instructors_id_seq OWNED BY public.instructors.id;
+
+
+--
 -- Name: puzzle_types; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -425,6 +456,13 @@ ALTER TABLE ONLY public.attempts ALTER COLUMN id SET DEFAULT nextval('public.att
 
 
 --
+-- Name: instructors id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.instructors ALTER COLUMN id SET DEFAULT nextval('public.instructors_id_seq'::regclass);
+
+
+--
 -- Name: puzzle_types id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -459,6 +497,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 ALTER TABLE ONLY public.attempts
     ADD CONSTRAINT attempts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: instructors instructors_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.instructors
+    ADD CONSTRAINT instructors_pkey PRIMARY KEY (id);
 
 
 --
@@ -531,10 +577,24 @@ CREATE INDEX index_attempts_on_student_id ON public.attempts USING btree (studen
 
 
 --
+-- Name: index_instructors_on_email; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_instructors_on_email ON public.instructors USING btree (email);
+
+
+--
 -- Name: index_puzzle_types_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_puzzle_types_on_name ON public.puzzle_types USING btree (name);
+
+
+--
+-- Name: index_students_on_email; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_students_on_email ON public.students USING btree (email);
 
 
 --
@@ -602,6 +662,7 @@ ALTER TABLE ONLY public.attempts
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20240925003546'),
 ('20240922174142'),
 ('20240922042931'),
 ('20240921054117'),

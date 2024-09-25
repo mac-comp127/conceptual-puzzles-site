@@ -1,5 +1,7 @@
 class AttemptsController < ApplicationController
-  before_action :require_student_login!
+  before_action do
+    require_login!(Student)
+  end
 
   def index
   end
