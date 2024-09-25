@@ -11,6 +11,7 @@ namespace :db do
         10.times.map do
           Student.create!(
             email: FFaker::Internet.email,
+            name: (FFaker::Name.name unless rand(4) == 0),
           )
         end
       end
@@ -27,10 +28,12 @@ namespace :db do
           student.attempts.where.not(state: AttemptState.graded)
             .update!(state: AttemptState.graded, score: AttemptScore.all.sample)
 
-          student.attempts.create!(
+          attempt = student.attempts.create!(
             state: AttemptState.queued,
             puzzle_type: puzzle_types.sample,
-          ).update!(
+          )
+          attempt.generate_lookup_code!
+          attempt.update!(
             state: AttemptState.available,
             problem_html: FFaker::Lorem.paragraph,
             solution_html: FFaker::Lorem.paragraph,

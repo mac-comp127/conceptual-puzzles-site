@@ -4,6 +4,5 @@ class Grading::HomeController < ApplicationController
   end
 
   def show
-    
   end
 end

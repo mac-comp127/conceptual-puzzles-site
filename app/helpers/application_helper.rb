@@ -19,4 +19,10 @@ module ApplicationHelper
       else attempt_state
     end
   end
+
+  def filter_link(param, value)
+    css_classes = ['choice']
+    css_classes << 'active' if params[param] == value.to_s
+    link_to value, { param => value }, class: css_classes
+  end
 end

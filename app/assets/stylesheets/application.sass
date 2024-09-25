@@ -1,3 +1,5 @@
+// –––––––––––– Document ––––––––––––
+
 @mixin responsive($width)
   @media all and (max-width: $width)
     @content
@@ -36,6 +38,8 @@ html
   
   --notice-color: #080
   --error-color:  #800
+
+  --active-color: color-mix(in srgb, var(--action-color), var(--text-color))
 
   @media (prefers-color-scheme: dark)
     --text-color:            oklch( 80% 0.001 var(--theme-hue0))
@@ -110,17 +114,21 @@ ul, ol, li
   margin: 0
   padding: 0
 
-@mixin bullet-list
-  list-style-type: disc
-  margin-left: var(--grid1)
-  li::marker
-    color: var(--meta-text-color)
-  li
-    line-height: var(--grid5⁄4)
-    margin: var(--grid1⁄2) 0
-
 iframe
   border: none
+
+main
+  margin: var(--grid1)
+  &.center-hero
+    max-width: 24em
+    margin: 0 auto
+    height: 67vh
+    display: flex
+    flex-direction: column
+    align-itrems: center
+    justify-content: center
+
+// –––––––––––– General components ––––––––––––
 
 .nav-top
   background: var(--meta-background)
@@ -186,21 +194,57 @@ button, a.button, input[type=submit]
     padding: var(--grid1⁄2) var(--grid1)
     font-weight: 500
   &:active
-    --active-color: color-mix(in srgb, var(--action-color), var(--text-color))
     background-color: var(--active-color)
     border-color: var(--active-color)
     color: var(--action-hot-text-color)
 
-main
-  margin: var(--grid1)
-  &.center-hero
-    max-width: 24em
-    margin: 0 auto
-    height: 67vh
+@mixin bullet-list
+  list-style-type: disc
+  margin-left: var(--grid1)
+  li::marker
+    color: var(--meta-text-color)
+  li
+    line-height: var(--grid5⁄4)
+    margin: var(--grid1⁄2) 0
+
+.loading-indicator
+  animation: fade-in 2s ease-out infinite
+
+@keyframes fade-in
+  0%
+    opacity: 0
+  100%
+    opacity: 1
+
+.choices
+  display: flex
+  gap: var(--grid1⁄2)
+  --row-height: var(--grid3⁄2)
+  margin: var(--grid1⁄2) 0
+  .title
+    color: var(--meta-text-color)
+    height: var(--row-height)
+    line-height: var(--row-height)
+    &:after
+      content: ':'
+  .group
     display: flex
-    flex-direction: column
-    align-itrems: center
-    justify-content: center
+    align-items: center
+    border-radius: var(--grid1⁄4)
+    border: 1px solid var(--action-color)
+  .choice
+    height: var(--row-height)
+    line-height: var(--row-height)
+    text-decoration: none
+    padding: 0 var(--grid1⁄2)
+    border-right: 1px solid var(--action-color)
+    &:last-child
+      border-right: none
+    &.active
+      background: var(--action-color)
+      color: var(--action-hot-text-color)
+
+// –––––––––––– View-specific ––––––––––––
 
 .puzzle-status-overview
   margin: var(--grid1) 0
@@ -257,15 +301,6 @@ main
       margin: var(--grid1⁄4) 0
       padding: var(--grid1⁄2)
       font-weight: 500
-
-.loading-indicator
-  animation: fade-in 2s ease-out infinite
-
-@keyframes fade-in
-  0%
-    opacity: 0
-  100%
-    opacity: 1
 
 .puzzle-content
   width: 100%
