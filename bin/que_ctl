@@ -8,23 +8,25 @@ set -e
 app_dir="$(dirname "$0")/.."
 
 function start() {
-  wrapper_que=/usr/share/rvm/wrappers/conceptual-puzzles-site/que
-  if [ -f "$wrapper_que" ]; then
-    que="$wrapper_que"
-  elif which que; then
-    que="$(which que)"
-  else
-    echo "Unable to find que executable" >&2
-    exit 1
-  fi
-  echo "que executable: $que"
+  (
+    wrapper_que=/usr/share/rvm/wrappers/conceptual-puzzles-site/que
+    if [ -f "$wrapper_que" ]; then
+      que="$wrapper_que"
+    elif which que; then
+      que="$(which que)"
+    else
+      echo "Unable to find que executable" >&2
+      exit 1
+    fi
+    echo "que executable: $que"
 
-  export conceptual_puzzles_generator_home=/home/ruby/apps/conceptual-puzzles
+    source /var/www/apps/ruby/conceptual-puzzles-site/.env-secret
 
-  cd "$app_dir"
-  mkdir -p tmp/pids
-  echo $$ > "$app_dir"/tmp/pids/que.pid
-  exec 2>&1 $que -q default -q mailers 1>"$app_dir"/log/que.log
+    cd "$app_dir"
+    mkdir -p tmp/pids
+    echo $$ > "$app_dir"/tmp/pids/que.pid
+    exec $que -q default -q mailers
+  ) 2>&1 1>>"$app_dir"/log/que.log
 }
 
 function isalive() {
