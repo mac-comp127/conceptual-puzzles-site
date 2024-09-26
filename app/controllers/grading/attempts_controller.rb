@@ -11,6 +11,16 @@ class Grading::AttemptsController < Grading::BaseController
   def show
   end
 
+  def update
+    attempt.grading_status = params[:attempt][:grading_status]
+    attempt.save!
+
+    update_desc = [attempt.state, attempt.score].compact.join(", ")
+    flash[:notice] = "Puzzle #{attempt.lookup_code} status updated: #{update_desc}"
+
+    redirect_to grading_attempt_path(attempt)
+  end
+
 private
 
   def attempt

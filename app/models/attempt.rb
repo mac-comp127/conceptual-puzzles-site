@@ -34,4 +34,28 @@ class Attempt < ApplicationRecord
   def generate_puzzle!
     GeneratePuzzleJob.enqueue(attempt_id: id)
   end
+
+  # Grading status folds state and score together to serve the grading process
+
+  def grading_status
+    if available?
+      :not_submitted
+    elsif submitted?
+      :submitted
+    elsif graded?
+      score
+    end
+  end
+
+  def grading_status=(status)
+    self.state, self.score =
+      case status.to_sym
+        when :not_submitted
+          [AttemptState.available, nil]
+        when :submitted
+          [AttemptState.submitted, nil]
+        else
+          [:graded, status]
+      end
+  end
 end

@@ -1,5 +1,15 @@
 // –––––––––––– Document ––––––––––––
 
+@mixin visible-focus
+  // outline-offset: 0px
+  outline-color: -webkit-focus-ring-color
+  outline-style: auto
+
+*:focus, *:focus-within
+  outline-offset: 5px
+  outline-width: 3px
+  outline-color: color-mix(in srgb, var(--action-color) 50%, transparent) !important
+
 @mixin responsive($width)
   @media all and (max-width: $width)
     @content
@@ -19,6 +29,8 @@ html
   --grid3⁄2: calc(var(--grid1) * 3/2)
   @for $mult from 2 through 20
     --grid#{$mult}: calc(var(--grid1) * #{$mult})
+
+  --nav-bar-height: var(--grid2)
 
   @include responsive(42em)
     --grid1: 1.0rem
@@ -142,6 +154,10 @@ main
 // –––––––––––– General components ––––––––––––
 
 .nav-top
+  position: sticky
+  top: 0
+  height: var(--nav-bar-height)
+  box-sizing: border-box
   background: var(--meta-background)
   padding: var(--grid1⁄2) var(--grid1)
   display: flex
@@ -162,6 +178,13 @@ main
     margin-right: var(--grid1⁄2)
     text-decoration: none
     display: inline-block
+
+.sticky
+  position: sticky
+  top: var(--nav-bar-height)
+  background: var(--background-color)
+  padding: var(--grid1⁄4)
+  margin: calc(-1 * var(--grid1⁄4))
 
 .flash
   margin: var(--grid2) var(--grid4)
@@ -250,9 +273,16 @@ button, a.button, input[type=submit]
     border-right: 1px solid var(--action-color)
     &:last-child
       border-right: none
-    &.active
+    &.active, &:has(input:checked)
       background: var(--action-color)
       color: var(--action-hot-text-color)
+    &:focus-within
+      @include visible-focus
+    input[type=radio]
+      // https://stackoverflow.com/a/22462740/239816
+      position: fixed
+      opacity: 0
+      pointer-events: none
   button, a.button, input[type=submit]
     height: var(--row-height)
     margin: 0

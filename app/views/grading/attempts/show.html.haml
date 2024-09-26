@@ -14,18 +14,19 @@
       Status:
       .status-message= attempt.state
   - else
-    = form_with model: attempt do |form|
-      .choices
-        .title Grading:
-        .group
-          .choice Not submitted
-        .group
-          .choice Awaiting grading
-        .group
-          .choice No credit
-          .choice Half credit
-          .choice Full credit
-        = form.submit "Save", class: 'big'
+    .sticky
+      = form_with model: [:grading, attempt] do |form|
+        .choices
+          .title Grading:
+          .group
+            .choice= labeled_radio_button(form, :grading_status, :not_submitted, "Not submitted")
+          .group
+            .choice= labeled_radio_button(form, :grading_status, :submitted, "Awaiting grading")
+          .group
+            .choice= labeled_radio_button(form, :grading_status, :no_credit, "No credit")
+            .choice= labeled_radio_button(form, :grading_status, :half_credit, "Half credit")
+            .choice= labeled_radio_button(form, :grading_status, :full_credit, "Full credit")
+          = form.submit "Save", class: 'big'
 
     %h2 Solution
     = render "partials/puzzle_content", html: attempt.solution_html

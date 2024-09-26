@@ -25,4 +25,11 @@ module ApplicationHelper
     css_classes << 'active' if params[param] == value.to_s
     link_to value, { param => value }, "data-turbo-prefetch" => false, class: css_classes
   end
+
+  def labeled_radio_button(form, param, value, label)
+    [
+      form.radio_button(param, value),
+      form.label(:"#{param}_#{value}", label),
+    ].join.html_safe
+  end
 end
