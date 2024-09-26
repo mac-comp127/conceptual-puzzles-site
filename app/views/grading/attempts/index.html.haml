@@ -1,4 +1,4 @@
-%main.grading-home
+%main.grading
   .filters
     .choices
       .title State
@@ -7,10 +7,10 @@
       .group
         - AttemptState.all.each do |state|
           = filter_link :state, state
-  %table
+  %table.index.row-click
     - @attempts.includes(:student, :puzzle_type).order(created_at: :desc).each do |attempt|
       %tr
-        %td= attempt.lookup_code
+        %td= link_to attempt.lookup_code, grading_attempt_path(attempt)
         %td= attempt.student.name || attempt.student.email
         %td= attempt.puzzle_type.name
         %td= attempt.state

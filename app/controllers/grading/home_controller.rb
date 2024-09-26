@@ -1,8 +1,4 @@
-class Grading::HomeController < ApplicationController
-  before_action do
-    require_login!(Instructor)
-  end
-
+class Grading::HomeController < Grading::BaseController
   def show
   end
 end

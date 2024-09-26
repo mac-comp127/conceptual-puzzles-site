@@ -1,4 +1,4 @@
-class Grading::AttemptsController < ApplicationController
+class Grading::AttemptsController < Grading::BaseController
   def index
     @attempts = Attempt.all
 
