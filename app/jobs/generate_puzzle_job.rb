@@ -20,6 +20,7 @@ class GeneratePuzzleJob < ApplicationJob
             "--html", problem_file.path,
             "--solution-html", solution_file.path
           )
+          output += "\n\nPuzzle generator version:\n\n"
           output += system_cmd(
             "git", "--git-dir", (puzzle_dir + ".git").to_s, "log", "-1"
           )

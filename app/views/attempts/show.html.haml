@@ -46,10 +46,10 @@
 
   - if attempt.graded? && attempt.solution_html?
     %h2 Correct Solution
-    %iframe.puzzle-content.expand-to-content-height{srcdoc: attempt.solution_html}
+    = render "partials/puzzle_content", html: attempt.solution_html
   - elsif attempt.problem_html?
     %h2 Puzzle
-    %iframe.puzzle-content.expand-to-content-height{srcdoc: attempt.problem_html}
+    = render "partials/puzzle_content", html: attempt.problem_html
 
 - if attempt.queued?
   .autoreload

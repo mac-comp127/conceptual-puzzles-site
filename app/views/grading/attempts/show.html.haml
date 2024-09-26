@@ -1,0 +1,34 @@
+= content_for :nav do
+  %a.back{href: grading_attempts_path} All Puzzles
+
+%main.grading
+  %h1 Puzzle #{attempt.lookup_code}
+  .status
+    Name:
+    .status-message= attempt.student.name
+  .status
+    Email:
+    .status-message= attempt.student.email
+  - if attempt.solution_html.blank?
+    .status
+      Status:
+      .status-message= attempt.state
+  - else
+    = form_with model: attempt do |form|
+      .choices
+        .title Grading:
+        .group
+          .choice Not submitted
+        .group
+          .choice Awaiting grading
+        .group
+          .choice No credit
+          .choice Half credit
+          .choice Full credit
+        = form.submit "Save", class: 'big'
+
+    %h2 Solution
+    = render "partials/puzzle_content", html: attempt.solution_html
+
+  %h2 Generator log
+  %pre= attempt.generator_log

@@ -124,6 +124,10 @@ table
 td, th
   padding: 0
 
+pre
+  font-family: Menlo, Consolis, monospace
+  line-height: 125%
+
 main
   margin: var(--grid1)
   &.center-hero
@@ -225,20 +229,19 @@ button, a.button, input[type=submit]
 
 .choices
   display: flex
-  gap: var(--grid1⁄2)
+  gap: var(--grid1)
   --row-height: var(--grid3⁄2)
   margin: var(--grid1⁄2) 0
   .title
     color: var(--meta-text-color)
     height: var(--row-height)
     line-height: var(--row-height)
-    &:after
-      content: ':'
   .group
     display: flex
     align-items: center
     border-radius: var(--grid1⁄4)
     border: 1px solid var(--action-color)
+    margin: -1px
   .choice
     height: var(--row-height)
     line-height: var(--row-height)
@@ -250,6 +253,11 @@ button, a.button, input[type=submit]
     &.active
       background: var(--action-color)
       color: var(--action-hot-text-color)
+  button, a.button, input[type=submit]
+    height: var(--row-height)
+    margin: 0
+    padding-top: 0
+    padding-bottom: 0
 
 table.index
   td
@@ -258,6 +266,13 @@ table.row-click
   tr:hover
     background: var(--active-background-color)
     cursor: pointer
+
+.status
+  color: var(--meta-text-color)
+  .status-message
+    display: inline-block
+    font-weight: 700
+    color: var(--text-color)
 
 // –––––––––––– View-specific ––––––––––––
 
@@ -292,12 +307,6 @@ table.row-click
         margin-right: var(--grid1)
 
 .puzzle
-  .status
-    color: var(--meta-text-color)
-    .status-message
-      display: inline-block
-      font-weight: 700
-      color: var(--text-color)
   .instructions
     $max-col-width: 32rem
     ul
