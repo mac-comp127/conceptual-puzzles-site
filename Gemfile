@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "nokogiri", "~> 1.15.0"  # Nokogiri 16 causes "wrong ELF class" error on Ubuntu?!
+gem "nokogiri", "~> 1.16.7"  # Nokogiri 16 causes "wrong ELF class" error on Ubuntu?!
 
 gem "rails", "~> 7.2.1"
 gem "sprockets-rails"
