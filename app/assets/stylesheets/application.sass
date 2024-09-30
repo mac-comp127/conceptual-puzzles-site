@@ -171,13 +171,25 @@ main
   align-items: center
   gap: var(--grid1)
   justify-content: space-between
+  .optional-label
+    display: inline
   .session
-    // justify-content: right
+    width: 0
+    flex: 1 1 auto
     display: flex
     gap: var(--grid1⁄2)
+    justify-content: right
     align-items: center
+    .username
+      overflow: hidden
+      text-overflow: ellipsis
     .avatar
       width: var(--grid2)
+  a
+    white-space: nowrap
+  @include responsive(36em)
+    .optional-label
+      display: none
 
 .back
   &:before

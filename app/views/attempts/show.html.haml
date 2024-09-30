@@ -1,5 +1,7 @@
 = content_for :nav do
-  %a.back{href: attempts_path} All Puzzles
+  %a.back{href: attempts_path}
+    .optional-label All
+    Puzzles
 
 %main.comfortable-width.wide
   %h1 Puzzle #{attempt.lookup_code}

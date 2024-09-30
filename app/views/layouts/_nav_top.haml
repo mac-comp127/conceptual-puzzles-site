@@ -5,7 +5,7 @@
   .session
     - if current_user
       .username
-        Logged in as:
+        .optional-label Logged in as:
         %b= current_user.email
       - if current_user_avatar
         %img.avatar{src: current_user_avatar}
