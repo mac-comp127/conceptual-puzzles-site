@@ -150,6 +150,13 @@ main
     flex-direction: column
     align-itrems: center
     justify-content: center
+  &.comfortable-width
+    max-width: 42em
+    &.wide
+      max-width: 72em
+    box-sizing: border-box
+    margin: 0 auto
+    padding: 0 var(--grid1)
 
 // –––––––––––– General components ––––––––––––
 
@@ -336,25 +343,24 @@ table.row-click
         display: inline
         margin-right: var(--grid1)
 
-.puzzle
-  .instructions
-    $max-col-width: 32rem
-    ul
-      @include bullet-list
-      max-width: $max-col-width
-      @include responsive-above($max-col-width * 1.5)
-        max-width: $max-col-width * 2
-        columns: 2
-        li
-          break-inside: avoid-column
-    .callout-content
-      display: inline-block
-      background: var(--meta-background)
-      border: 1px solid var(--meta-text-color)
-      border-radius: var(--grid1⁄4)
-      margin: var(--grid1⁄4) 0
-      padding: var(--grid1⁄2)
-      font-weight: 500
+.instructions
+  $max-col-width: 32rem
+  ul
+    @include bullet-list
+    max-width: $max-col-width
+    @include responsive-above($max-col-width * 1.5)
+      max-width: $max-col-width * 2
+      columns: 2
+      li
+        break-inside: avoid-column
+  .callout-content
+    display: inline-block
+    background: var(--meta-background)
+    border: 1px solid var(--meta-text-color)
+    border-radius: var(--grid1⁄4)
+    margin: var(--grid1⁄4) 0
+    padding: var(--grid1⁄2)
+    font-weight: 500
 
 .puzzle-content
   width: 100%
