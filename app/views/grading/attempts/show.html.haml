@@ -23,9 +23,8 @@
           .group
             .choice= labeled_radio_button(form, :grading_status, :submitted, "Awaiting grading")
           .group
-            .choice= labeled_radio_button(form, :grading_status, :no_credit, "No credit")
-            .choice= labeled_radio_button(form, :grading_status, :half_credit, "Half credit")
-            .choice= labeled_radio_button(form, :grading_status, :full_credit, "Full credit")
+            - AttemptScore.all.each do |score|
+              .choice= labeled_radio_button(form, :grading_status, score, score.gsub('_', ' ').capitalize)
           = form.submit "Save", class: 'big'
 
     %h2 Solution

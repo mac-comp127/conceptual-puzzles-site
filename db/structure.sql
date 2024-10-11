@@ -16,6 +16,7 @@ SET row_security = off;
 CREATE TYPE public.attempt_score AS ENUM (
     'no_credit',
     'half_credit',
+    'almost',
     'full_credit'
 );
 
@@ -662,6 +663,7 @@ ALTER TABLE ONLY public.attempts
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20241011052856'),
 ('20240925003546'),
 ('20240922174142'),
 ('20240922042931'),
