@@ -4,7 +4,7 @@ gem "nokogiri", "~> 1.15.0"  # Nokogiri 16 causes "wrong ELF class" error on Ubu
 
 gem "rails", "~> 7.2.1"
 gem "sprockets-rails"
-gem "pg", "~> 1.1"
+gem "pg", "~> 1.5"
 gem "puma", ">= 5.0"
 
 gem "importmap-rails" # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
