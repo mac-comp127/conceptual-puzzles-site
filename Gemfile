@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 gem "nokogiri", "~> 1.15.0"  # Nokogiri 16 causes "wrong ELF class" error on Ubuntu?!
 
-gem "rails", "~> 7.2.1"
+gem "rails", "~> 8.0.0"
 gem "sprockets-rails"
 gem "pg", "~> 1.1"
 gem "puma", ">= 5.0"
