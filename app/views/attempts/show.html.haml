@@ -31,7 +31,7 @@
           .callout
             .callout-content
               .line
-                = attempt.student.name || attempt.student.email.sub(/@macalester\.edu/, '')
+                = attempt.student.display_name
               .line
                 Puzzle
                 = attempt.lookup_code

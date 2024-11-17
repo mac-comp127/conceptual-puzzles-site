@@ -1,8 +1,17 @@
 = content_for :nav do
-  %a.back{href: grading_students_path} Student Grades
+  %a.back{href: grading_students_path} Students
 
 %main
-  %h1 Grades for #{student.email}
+  %h1 Puzzle scores for #{student.display_name}
+  
+  .metadata-group
+    .status
+      Name:
+      .status-message= student.name
+    .status
+      Email:
+      .status-message= student.email
+
   %table.index
     %tr.header
       %th= #puzzle type

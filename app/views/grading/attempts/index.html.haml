@@ -1,3 +1,6 @@
+= content_for :nav do
+  %a.back{href: grading_path} Grading
+
 %main
   .filters
     .choices
@@ -7,12 +10,5 @@
       .group
         - AttemptState.all.each do |state|
           = filter_link :state, state
-  %table.index.row-click
-    - @attempts.includes(:student, :puzzle_type).order(created_at: :desc).each do |attempt|
-      %tr
-        %td= link_to attempt.lookup_code, grading_attempt_path(attempt)
-        %td= attempt.student.name || attempt.student.email
-        %td= attempt.puzzle_type.name
-        %td= attempt.state
-        %td= attempt.score
+  = render 'attempts_table', attempts: @attempts
     

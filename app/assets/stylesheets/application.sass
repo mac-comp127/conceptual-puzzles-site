@@ -198,6 +198,15 @@ main
     text-decoration: none
     display: inline-block
 
+.detail-nav
+  display: block
+  margin: var(--grid1⁄2)
+  &:after
+    content: '❯'
+    margin-left: var(--grid1⁄2)
+    text-decoration: none
+    display: inline-block
+
 .sticky
   position: sticky
   top: var(--nav-bar-height)
@@ -327,9 +336,12 @@ table.index
     td, th
       border-top: 0.5px solid var(--meta-text-color)
 table.row-click
-  tr:hover
+  tr:hover:not(.header):not(.footer)
     background: var(--active-background-color)
     cursor: pointer
+
+.metadata-group
+  margin-bottom: var(--grid1)
 
 .status
   color: var(--meta-text-color)

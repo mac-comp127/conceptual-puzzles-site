@@ -1,31 +1,33 @@
 = content_for :nav do
-  %a.back{href: grading_attempts_path} All Puzzles
+  %a.back{href: grading_attempts_path} All Attempts
 
 %main
   %h1 Puzzle #{attempt.lookup_code}
-  .status
-    Name:
-    .status-message= attempt.student.name
-  .status
-    Email:
-    .status-message= attempt.student.email
-  - if attempt.solution_html.blank?
+
+  .metadata-group
     .status
-      Status:
-      .status-message= attempt.state
-  - else
-    .sticky
-      = form_with model: [:grading, attempt] do |form|
-        .choices
-          .title Grading:
-          .group
-            .choice= labeled_radio_button(form, :grading_status, :not_submitted, "Not submitted")
-          .group
-            .choice= labeled_radio_button(form, :grading_status, :submitted, "Awaiting grading")
-          .group
-            - AttemptScore.all.each do |score|
-              .choice= labeled_radio_button(form, :grading_status, score, score.gsub('_', ' ').capitalize)
-          = form.submit "Save", class: 'big'
+      Name:
+      .status-message= attempt.student.name
+    .status
+      Email:
+      .status-message= attempt.student.email
+    - if attempt.solution_html.blank?
+      .status
+        Status:
+        .status-message= attempt.state
+    - else
+      .sticky
+        = form_with model: [:grading, attempt] do |form|
+          .choices
+            .title Grading:
+            .group
+              .choice= labeled_radio_button(form, :grading_status, :not_submitted, "Not submitted")
+            .group
+              .choice= labeled_radio_button(form, :grading_status, :submitted, "Awaiting grading")
+            .group
+              - AttemptScore.all.each do |score|
+                .choice= labeled_radio_button(form, :grading_status, score, score.gsub('_', ' ').capitalize)
+            = form.submit "Save", class: 'big'
 
     %h2 Solution
     = render "partials/puzzle_content", html: attempt.solution_html

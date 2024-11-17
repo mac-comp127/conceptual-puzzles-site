@@ -1,19 +1,25 @@
+= content_for :nav do
+  %a.back{href: grading_path} Grading
+
 %main
   %table.index.row-click
     %tr.header
-      %th=#Email
-      %th Total
+      %th
+      %th
+      %th.numeric Total
       - PuzzleType.all.each do |type|
         %th= type.name
     - @students.order(:email).each do |student|
       %tr
-        %td= link_to student.email, grading_student_path(student)
+        %td= student.username
+        %td= link_to student.display_name, grading_student_path(student)
         %td.numeric= percent_format student.total_score
         - student.puzzle_statuses.each do |status|
           = render 'puzzle_score_cell', status:
     - { "Mean" => :mean, "Median" => :median }.each do |stat_label, stat_fn|
       %tr.footer
-        %th= stat_label
+        %th
+        %th.numeric= stat_label
         %td.numeric= percent_format send(stat_fn, all_total_scores)
         - PuzzleType.all.each do |type|
           %td.numeric= percent_format send(stat_fn, all_scores_for(puzzle_type: type))

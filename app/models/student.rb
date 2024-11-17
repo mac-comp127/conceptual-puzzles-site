@@ -1,6 +1,14 @@
 class Student < ApplicationRecord
   has_many :attempts
 
+  def username
+    email.sub("@macalester.edu", "")
+  end
+
+  def display_name
+    name || email
+  end
+
   def puzzle_statuses
     @puzzle_statuses ||= PuzzleType.enabled.map do |puzzle_type|
       puzzle_status_for(puzzle_type:)

@@ -1,0 +1,8 @@
+%table.index.row-click
+  - attempts.includes(:student, :puzzle_type).order(created_at: :desc).each do |attempt|
+    %tr
+      %td= link_to attempt.lookup_code, grading_attempt_path(attempt)
+      %td= attempt.student.display_name
+      %td= attempt.puzzle_type.name
+      %td= attempt.state
+      %td= attempt.score

@@ -1,2 +1,11 @@
 %main
-  Grade 'em
+  %h1 Pending Attempts
+  = render "grading/attempts/attempts_table", attempts: @pending_attempts
+  %a.detail-nav{href: grading_attempts_path} All Attempts
+
+  %h1 Students
+  %a.detail-nav{href: grading_students_path} All Students
+
+  - if @error_attempts.any?
+    %h2 Recent Errors
+    = render "grading/attempts/attempts_table", attempts: @error_attempts
