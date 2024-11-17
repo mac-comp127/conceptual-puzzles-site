@@ -12,7 +12,7 @@
     - student.puzzle_statuses.each do |status|
       %tr
         %th= status.puzzle_type.name
-        = render 'puzzle_score_cell', score: status.score
+        = render 'puzzle_score_cell', status:
         %td
           - status.attempts.each do |attempt|
             - if [AttemptState.available, AttemptState.submitted].include?(attempt.state)

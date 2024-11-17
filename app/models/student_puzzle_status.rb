@@ -6,4 +6,8 @@ StudentPuzzleStatus = Data.define(
   :attempts,
   :latest_attempt,
   :new_attempt_allowed,
-)
+) do
+  def numeric_score
+    AttemptScore.to_numeric(score)
+  end
+end

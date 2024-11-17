@@ -10,5 +10,5 @@
         %td= link_to student.email, grading_student_path(student)
         %td.numeric= percent_format student.total_score
         - student.puzzle_statuses.each do |status|
-          = render 'puzzle_score_cell', score: status.score
+          = render 'puzzle_score_cell', status:
     

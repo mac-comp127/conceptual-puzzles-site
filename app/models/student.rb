@@ -30,6 +30,6 @@ class Student < ApplicationRecord
   end
 
   def total_score
-    puzzle_statuses.map { |status| AttemptScore.to_numeric(status.score) }.sum / PuzzleType.count
+    puzzle_statuses.map(&:numeric_score).sum / PuzzleType.count
   end
 end

@@ -338,6 +338,24 @@ table.row-click
     font-weight: 700
     color: var(--text-color)
 
+.progress-bar
+  box-sizing: border-box
+  margin: var(--grid1) 0
+  height: var(--grid3⁄2)
+  border-radius: var(--grid1)
+  border: 0.5px solid var(--meta-text-color)
+  text-align: center
+  overflow: hidden
+  &:before
+    width: calc(100% * var(--progress-bar-value))
+    height: var(--grid2)
+    margin-bottom: calc(-1 * var(--grid2))
+    content: ' '
+    display: block
+    box-sizing: border-box
+    background: var(--meta-background)
+    border-right: 0.5px solid var(--meta-text-color)
+
 // –––––––––––– View-specific ––––––––––––
 
 .puzzle-status-overview
