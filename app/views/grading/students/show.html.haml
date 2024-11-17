@@ -14,11 +14,13 @@
         %th= status.puzzle_type.name
         = render 'puzzle_score_cell', score: status.score
         %td
-          - status.attempts.where(state: [AttemptState.available, AttemptState.submitted]).each do |attempt|
-            = link_to attempt.state, grading_attempt_path(attempt)
+          - status.attempts.each do |attempt|
+            - if [AttemptState.available, AttemptState.submitted].include?(attempt.state)
+              = link_to attempt.state, grading_attempt_path(attempt)
         %td
-          - status.attempts.order(created_at: :desc).where(state: AttemptState.graded).each do |attempt|
-            = link_to attempt.score, grading_attempt_path(attempt)
+          - status.attempts.each do |attempt|
+            - if AttemptState.graded == attempt.state
+              = link_to attempt.score, grading_attempt_path(attempt)
     %tr.footer
       %th Total
       %td.numeric= percent_format student.total_score, decimal_places: 1

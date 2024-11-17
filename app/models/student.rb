@@ -8,11 +8,18 @@ class Student < ApplicationRecord
   end
 
   def puzzle_status_for(puzzle_type:)
-    attempts_for_type = attempts.where(puzzle_type:)
-    latest_attempt = attempts_for_type.recent.first
+    attempts_for_type =
+      attempts
+        .select { |a| a.puzzle_type == puzzle_type }
+        .sort_by(&:created_at)
+        .reverse
+    latest_attempt = attempts_for_type.first
     StudentPuzzleStatus[
       puzzle_type:,
-      score: attempts_for_type.where(state: AttemptState.graded).maximum(:score) || AttemptScore.no_credit,
+      score: attempts_for_type
+        .select { |a| a.state == AttemptState.graded }
+        .map(&:score)
+        .max || AttemptScore.no_credit,
       attempts: attempts_for_type,
       latest_attempt:,
       new_attempt_allowed: (

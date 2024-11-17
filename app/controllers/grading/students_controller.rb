@@ -1,6 +1,6 @@
 class Grading::StudentsController < Grading::BaseController
   def index
-    @students = Student.all
+    @students = Student.all.includes(attempts: :puzzle_type)
   end
 
   def show
