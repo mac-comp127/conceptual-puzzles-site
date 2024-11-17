@@ -8,6 +8,7 @@ PuzzleType.transaction do
     bool: "Booleans and conditionals",
     loop: "While loops and for loops",
     vars: "Variable scope and lifetime",
+    clos: "Closures and event handling",
   }.each do |name, description|
     PuzzleType.find_or_initialize_by(name:).update!(description:, enabled: true)
   end
