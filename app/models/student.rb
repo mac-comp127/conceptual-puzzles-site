@@ -27,7 +27,7 @@ class Student < ApplicationRecord
       score: attempts_for_type
         .select { |a| a.state == AttemptState.graded }
         .map(&:score)
-        .max || AttemptScore.no_credit,
+        .max_by { |s| AttemptScore.to_numeric(s) } || AttemptScore.no_credit,
       attempts: attempts_for_type,
       latest_attempt:,
       new_attempt_allowed: (
