@@ -4,6 +4,7 @@ module ApplicationHelper
       when nil                      then "No points yet"
       when AttemptScore.no_credit   then "No points yet"
       when AttemptScore.half_credit then "Half credit"
+      when AttemptScore.almost      then "Almost!"
       when AttemptScore.full_credit then "Full credit"
       else score
     end
