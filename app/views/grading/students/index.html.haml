@@ -1,0 +1,14 @@
+%main
+  %table.index.row-click
+    %tr.header
+      %th=#Email
+      %th Total
+      - PuzzleType.all.each do |type|
+        %th= type.name
+    - @students.order(:email).each do |student|
+      %tr
+        %td= link_to student.email, grading_student_path(student)
+        %td.numeric= percent_format student.total_score
+        - student.puzzle_statuses.each do |status|
+          = render 'puzzle_score_cell', score: status.score
+    

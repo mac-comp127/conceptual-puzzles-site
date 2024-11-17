@@ -2,7 +2,8 @@
 #
 StudentPuzzleStatus = Data.define(
   :puzzle_type, 
-  :score, 
+  :score,
+  :attempts,
   :latest_attempt,
   :new_attempt_allowed,
 )

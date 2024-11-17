@@ -11,7 +11,11 @@ Rails.application.routes.draw do
 
   namespace :grading do
     get '/', to: 'home#show'
+
     resources :attempts
+
+    get '/students', to: 'students#index'
+    get '/student/:id', to: 'students#show', as: 'student'
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

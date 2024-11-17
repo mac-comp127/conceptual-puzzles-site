@@ -1,0 +1,24 @@
+= content_for :nav do
+  %a.back{href: grading_students_path} Student Grades
+
+%main
+  %h1 Grades for #{student.email}
+  %table.index
+    %tr.header
+      %th= #puzzle type
+      %th Score
+      %th Pending
+      %th Graded
+    - student.puzzle_statuses.each do |status|
+      %tr
+        %th= status.puzzle_type.name
+        = render 'puzzle_score_cell', score: status.score
+        %td
+          - status.attempts.where(state: [AttemptState.available, AttemptState.submitted]).each do |attempt|
+            = link_to attempt.state, grading_attempt_path(attempt)
+        %td
+          - status.attempts.order(created_at: :desc).where(state: AttemptState.graded).each do |attempt|
+            = link_to attempt.score, grading_attempt_path(attempt)
+    %tr.footer
+      %th Total
+      %td.numeric= percent_format student.total_score, decimal_places: 1

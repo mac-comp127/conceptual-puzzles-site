@@ -32,4 +32,8 @@ module ApplicationHelper
       form.label(:"#{param}_#{value}", label),
     ].join.html_safe
   end
+
+  def percent_format(fraction, decimal_places: 0)
+    "%1.*f%%" % [decimal_places, fraction * 100]
+  end
 end

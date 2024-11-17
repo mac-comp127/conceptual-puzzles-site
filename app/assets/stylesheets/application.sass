@@ -309,8 +309,23 @@ button, a.button, input[type=submit]
     padding-bottom: 0
 
 table.index
-  td
+  th
+    text-align: left
+  td, th
     padding: 0 var(--grid1⁄2)
+    a + a
+      margin-left: 1ex
+    &.score
+      text-align: center
+      background: oklch(from var(--meta-text-color) l calc(c * 2) calc(pow(var(--score), 4) * 120 + 30) / calc(var(--score) * 75%))
+    &.numeric
+      text-align: right
+  tr.header
+    td, th
+      border-bottom: 0.5px solid var(--meta-text-color)
+  tr.footer
+    td, th
+      border-top: 0.5px solid var(--meta-text-color)
 table.row-click
   tr:hover
     background: var(--active-background-color)
