@@ -1,6 +1,6 @@
 class Grading::AttemptsController < Grading::BaseController
   def index
-    @attempts = Attempt.all
+    @attempts = cohort_attempts
 
     params[:state] ||= 'submitted'
     unless params[:state] == 'all'

@@ -1,5 +1,6 @@
 = content_for :nav do
-  %a.back{href: grading_attempts_path} All Attempts
+  - if cohort_id = attempt.student.cohort_id
+    %a.back{href: grading_cohort_attempts_path(cohort_id)} Attempts
 
 %main
   %h1 Puzzle #{attempt.lookup_code}

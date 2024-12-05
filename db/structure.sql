@@ -296,6 +296,40 @@ ALTER SEQUENCE public.attempts_id_seq OWNED BY public.attempts.id;
 
 
 --
+-- Name: cohorts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.cohorts (
+    id bigint NOT NULL,
+    name text NOT NULL,
+    start_date date,
+    end_date date,
+    instructor_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: cohorts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.cohorts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: cohorts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.cohorts_id_seq OWNED BY public.cohorts.id;
+
+
+--
 -- Name: instructors; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -426,7 +460,8 @@ CREATE TABLE public.students (
     email character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    name character varying
+    name character varying,
+    cohort_id bigint
 );
 
 
@@ -454,6 +489,13 @@ ALTER SEQUENCE public.students_id_seq OWNED BY public.students.id;
 --
 
 ALTER TABLE ONLY public.attempts ALTER COLUMN id SET DEFAULT nextval('public.attempts_id_seq'::regclass);
+
+
+--
+-- Name: cohorts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cohorts ALTER COLUMN id SET DEFAULT nextval('public.cohorts_id_seq'::regclass);
 
 
 --
@@ -498,6 +540,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 ALTER TABLE ONLY public.attempts
     ADD CONSTRAINT attempts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cohorts cohorts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cohorts
+    ADD CONSTRAINT cohorts_pkey PRIMARY KEY (id);
 
 
 --
@@ -578,6 +628,13 @@ CREATE INDEX index_attempts_on_student_id ON public.attempts USING btree (studen
 
 
 --
+-- Name: index_cohorts_on_instructor_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cohorts_on_instructor_id ON public.cohorts USING btree (instructor_id);
+
+
+--
 -- Name: index_instructors_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -592,10 +649,17 @@ CREATE UNIQUE INDEX index_puzzle_types_on_name ON public.puzzle_types USING btre
 
 
 --
+-- Name: index_students_on_cohort_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_students_on_cohort_id ON public.students USING btree (cohort_id);
+
+
+--
 -- Name: index_students_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_students_on_email ON public.students USING btree (email);
+CREATE INDEX index_students_on_email ON public.students USING btree (email);
 
 
 --
@@ -641,6 +705,14 @@ CREATE TRIGGER que_state_notify AFTER INSERT OR DELETE OR UPDATE ON public.que_j
 
 
 --
+-- Name: cohorts fk_rails_0c653d1835; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cohorts
+    ADD CONSTRAINT fk_rails_0c653d1835 FOREIGN KEY (instructor_id) REFERENCES public.instructors(id);
+
+
+--
 -- Name: attempts fk_rails_2def03d048; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -663,6 +735,7 @@ ALTER TABLE ONLY public.attempts
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20241204054535'),
 ('20241011052856'),
 ('20240925003546'),
 ('20240922174142'),

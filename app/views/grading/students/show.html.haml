@@ -1,5 +1,5 @@
 = content_for :nav do
-  %a.back{href: grading_students_path} Students
+  %a.back{href: grading_cohort_students_path(student.cohort)} Students
 
 %main
   %h1 Puzzle scores for #{student.display_name}

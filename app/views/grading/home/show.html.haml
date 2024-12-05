@@ -1,10 +1,12 @@
 %main
-  %h1 Pending Attempts
-  = render "grading/attempts/attempts_table", attempts: @pending_attempts
-  %a.detail-nav{href: grading_attempts_path} All Attempts
+  %h1= cohort.name
 
-  %h1 Students
-  %a.detail-nav{href: grading_students_path} All Students
+  %h2 Pending Attempts
+  = render "grading/attempts/attempts_table", attempts: @pending_attempts
+  %a.detail-nav{href: grading_cohort_attempts_path(cohort)} All Attempts
+
+  %h2 Students
+  %a.detail-nav{href: grading_cohort_students_path(cohort)} All Students
 
   - if @error_attempts.any?
     %h2 Recent Errors

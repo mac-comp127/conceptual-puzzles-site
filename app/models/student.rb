@@ -1,5 +1,6 @@
 class Student < ApplicationRecord
   has_many :attempts
+  belongs_to :cohort
 
   def username
     email.sub("@macalester.edu", "")
