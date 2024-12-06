@@ -1,0 +1,42 @@
+= content_for :nav do
+  %a.back{href: grading_cohorts_path} Cohorts
+
+%main
+  %h1
+    = cohort.name
+    .aside= link_to 'Edit', edit_grading_cohort_path(cohort)
+
+  .status
+    Status:
+    - now = cohort.official_current_time
+    - if !cohort.started?
+      .status-message
+        Not started yet
+      (begins in #{distance_of_time_in_words(cohort.start_time, now)})
+    - if cohort.in_session?
+      .status-message
+        In session
+      (ends in #{distance_of_time_in_words(cohort.end_time, now)})
+    - if cohort.ended?
+      .status-message
+        Ended
+      (#{distance_of_time_in_words(cohort.end_time, now)} ago)
+  .status
+    Dates:
+    .status-message= cohort.start_date
+    until
+    .status-message= cohort.end_date
+  .status
+    Instructor:
+    .status-message= cohort.instructor.email
+
+  %h2 Pending Attempts
+  = render "grading/attempts/attempts_table", attempts: @pending_attempts
+  %a.detail-nav{href: grading_cohort_attempts_path(cohort)} All Attempts
+
+  %h2 Students
+  %a.detail-nav{href: grading_cohort_students_path(cohort)} All Students
+
+  - if @error_attempts.any?
+    %h2 Recent Errors
+    = render "grading/attempts/attempts_table", attempts: @error_attempts

@@ -1,0 +1,17 @@
+%main
+  %h1
+    Conceptual Mastery Puzzle Cohorts
+
+  .choices= button_to 'New Cohort', new_grading_cohort_path, method: :get
+
+  %ul
+    - @cohorts.each do |cohort|
+      %li
+        %a{href: grading_cohort_path(cohort)}
+          = cohort.name
+          –
+          = cohort.instructor.email
+        - unless cohort.started?
+          .aside (Not started yet)
+        - if cohort.ended?
+          .aside (Ended)

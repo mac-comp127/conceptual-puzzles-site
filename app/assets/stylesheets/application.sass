@@ -47,7 +47,7 @@ html
   --action-hot-text-color: white
   --meta-text-color:       oklch( 72% 0.080 var(--theme-hue1))
   --meta-background:       oklch( 96% 0.012 var(--theme-hue1))
-  
+
   --notice-color: #080
   --error-color:  #800
 
@@ -63,6 +63,7 @@ html
     --action-hot-text-color: oklch( 10% 0.002 var(--theme-hue0))
     --meta-text-color:       oklch( 56% 0.080 var(--theme-hue1))
     --meta-background:       oklch( 30% 0.012 var(--theme-hue1))
+    --error-color:  #F44
 
 html
   font-family: 'Avenir Next', Verdana, Sans-serif
@@ -206,6 +207,14 @@ main
     margin-left: var(--grid1⁄2)
     text-decoration: none
     display: inline-block
+
+.aside
+  display: inline-block
+  margin-left: 1ex
+  color: var(--meta-text-color)
+  font:
+    weight: normal
+    size: 1rem
 
 .sticky
   position: sticky
@@ -367,6 +376,59 @@ table.row-click
     box-sizing: border-box
     background: var(--meta-background)
     border-right: 0.5px solid var(--meta-text-color)
+
+// –––––––––––– Admin Forms ––––––––––––
+
+.admin-form
+  $form-indent: var(--grid5)
+
+  margin: var(--grid1) 0
+
+  input[type=text],
+  input[type=date],
+  select,
+  textarea
+    font-family: inherit
+    font-size: 100%
+    color: var(--text-color)
+    background: var(--background-hot-color)
+    border: 1px solid var(--meta-text-color)
+    height: var(--grid3⁄2)
+    padding: 0 1ex
+    -moz-appearance: none
+    -webkit-appearance: none
+    appearance: none
+  select
+    border-radius: var(--grid1⁄4)
+
+  form .field
+    margin: var(--grid1⁄2) 0
+
+  label
+    display: inline-block
+    text-align: right
+    width: $form-indent
+    color: var(--meta-text-color)
+    box-sizing: border-box
+    padding-right: var(--grid1⁄4)
+
+  input[type=submit]
+    margin-left: calc($form-indent + var(--grid1⁄4))
+
+  .form-error
+    color: var(--error-color)
+
+  .field_with_errors
+    display: inline
+
+  .field
+    &:has(.field_with_errors) label
+      $border-size: var(--grid1⁄4)
+      border-left: $border-size solid var(--error-color)
+    .error
+      color: var(--error-color)
+      font-size: 85%
+      margin-left: $form-indent
 
 // –––––––––––– View-specific ––––––––––––
 

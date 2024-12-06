@@ -1,0 +1,22 @@
+= content_for :nav do
+  %a.back{href: grading_cohorts_path} Cohorts
+
+%main
+  %h1
+    - if cohort.new_record?
+      New Cohort
+    - else
+      Edit Cohort
+
+  .admin-form
+    = form_with model: [:grading, cohort] do |form|
+
+      - cohort.errors.full_messages.each do |error|
+        .form-error= error
+
+      = field_row form, :text_field, :name, 'Name'
+      = field_row form, :date_field, :start_date, 'Start date'
+      = field_row form, :date_field, :end_date, 'End date'
+      = field_row form, :select, :instructor_id, 'Instructor', [[]] + Instructor.all.map { |i| [i.email, i.id]}
+
+      = form.submit 'Save', class: :big

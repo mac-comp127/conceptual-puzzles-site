@@ -11,8 +11,6 @@ Rails.application.routes.draw do
 
   namespace :grading do
     resources :cohorts do
-      get '/', to: 'home#show'
-
       get '/attempts', to: 'attempts#index'
       get '/students', to: 'students#index'
     end

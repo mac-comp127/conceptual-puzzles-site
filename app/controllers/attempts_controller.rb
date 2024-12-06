@@ -40,4 +40,14 @@ private
         .new_attempt_allowed
   end
   helper_method :new_attempt_allowed?
+
+  def semester_progress
+    cohort = current_student.cohort
+    [
+      0,
+      (cohort.official_current_time - cohort.start_time) / (cohort.end_time - cohort.start_time),
+      1
+    ].sort[1]  # min 0, max 1
+  end
+  helper_method :semester_progress
 end

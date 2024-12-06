@@ -4,3 +4,5 @@ import "autoreload"
 import "resize-iframes"
 import "randomize-theme-hue"
 import "tables"
+
+Turbo.setFormMode("off")  // Turbo forms cause more problems than they solve

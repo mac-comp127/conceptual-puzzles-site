@@ -1,10 +1,18 @@
 %main.comfortable-width
-  %h1 Conceptual Mastery Puzzles
+  %h1
+    Conceptual Mastery Puzzles
+    .aside
+      = current_student.cohort.name
 
   - if current_student.attempts.any?
     .progress-bar{style: "--progress-bar-value: #{current_student.total_score}"}
-      Your progress:
+      Your puzzle progress:
       = percent_format current_student.total_score
+
+  - if current_student.cohort.started?
+    .progress-bar{style: "--progress-bar-value: #{semester_progress}"}
+      Semester progress:
+      = percent_format semester_progress
 
   %ul.puzzle-status-overview
     - current_student.puzzle_statuses.each do |status|
