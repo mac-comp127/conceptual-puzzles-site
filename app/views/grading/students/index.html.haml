@@ -11,7 +11,7 @@
       %th
       %th
       %th.numeric Total
-      - PuzzleType.all.each do |type|
+      - cohort.puzzle_types.each do |type|
         %th= type.name
     - @students.order(:email).each do |student|
       %tr
@@ -25,7 +25,7 @@
         %th
         %th.numeric= stat_label
         %td.numeric= percent_format send(stat_fn, all_total_scores)
-        - PuzzleType.all.each do |type|
+        - cohort.puzzle_types.each do |type|
           %td.numeric= percent_format send(stat_fn, all_scores_for(puzzle_type: type))
 
   %h2 Add Students

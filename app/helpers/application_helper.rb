@@ -35,6 +35,7 @@ module ApplicationHelper
   end
 
   def percent_format(fraction, decimal_places: 0)
+    return nil if fraction.nil?
     "%1.*f%%" % [decimal_places, fraction * 100]
   end
 end

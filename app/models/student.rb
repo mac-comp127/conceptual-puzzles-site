@@ -11,7 +11,7 @@ class Student < ApplicationRecord
   end
 
   def puzzle_statuses
-    @puzzle_statuses ||= PuzzleType.enabled.map do |puzzle_type|
+    @puzzle_statuses ||= puzzle_types.map do |puzzle_type|
       puzzle_status_for(puzzle_type:)
     end
   end
@@ -39,6 +39,15 @@ class Student < ApplicationRecord
   end
 
   def total_score
-    puzzle_statuses.map(&:numeric_score).sum / PuzzleType.count
+    type_count = puzzle_types.count
+    if type_count == 0
+      0
+    else
+      puzzle_statuses.map(&:numeric_score).sum / type_count
+    end
+  end
+
+  def puzzle_types
+    cohort&.puzzle_types || PuzzleType.all
   end
 end

@@ -8,7 +8,7 @@
     - else
       Edit Cohort
 
-  .admin-form
+  .admin-form.edit-cohort
     = form_with model: [:grading, cohort] do |form|
 
       - cohort.errors.full_messages.each do |error|
@@ -18,5 +18,16 @@
       = field_row form, :date_field, :start_date, 'Start date'
       = field_row form, :date_field, :end_date, 'End date'
       = field_row form, :select, :instructor_id, 'Instructor', [[]] + Instructor.all.map { |i| [i.email, i.id]}
+
+      %h2 Enabled Puzzle Types
+
+      %ul
+        - PuzzleType.all.each do |puzzle_type|
+          %li.puzzle-type
+            - field_key = "puzzle_types[#{puzzle_type.id}][enabled]"
+            = check_box_tag field_key, checked: cohort.puzzle_types.include?(puzzle_type)
+            = label_tag field_key do
+              .name= puzzle_type.name
+              .desc= puzzle_type.description
 
       .action-buttons= form.submit 'Save', class: :big

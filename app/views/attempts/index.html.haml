@@ -2,14 +2,14 @@
   %h1
     Conceptual Mastery Puzzles
     .aside
-      = current_student.cohort.name
+      = current_student.cohort&.name
 
-  - if current_student.attempts.any?
+  - if current_student.total_score && current_student.attempts.any?
     .progress-bar{style: "--progress-bar-value: #{current_student.total_score}"}
       Your puzzle progress:
       = percent_format current_student.total_score
 
-  - if current_student.cohort.started?
+  - if current_student.cohort&.started?
     .progress-bar{style: "--progress-bar-value: #{semester_progress}"}
       Semester progress:
       = percent_format semester_progress

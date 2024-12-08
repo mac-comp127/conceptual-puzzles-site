@@ -29,6 +29,13 @@
   .status
     Instructor:
     .status-message= cohort.instructor.email
+  .status
+    Puzzle types:
+    .status-message
+      - if cohort.puzzle_types.any?
+        = cohort.puzzle_types.map(&:name).join(", ")
+      - else
+        None yet
 
   %h2 Pending Attempts
   = render "grading/attempts/attempts_table", attempts: @pending_attempts

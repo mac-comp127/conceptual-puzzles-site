@@ -392,19 +392,34 @@ table.row-click
   input[type=text],
   input[type=date],
   select,
-  textarea
+  textarea,
+  input[type=checkbox]
     font-family: inherit
     font-size: 100%
     color: var(--text-color)
     background: var(--background-hot-color)
     border: 1px solid var(--meta-text-color)
     height: var(--grid3⁄2)
+    box-sizing: border-box
     padding: 0 1ex
     -moz-appearance: none
     -webkit-appearance: none
     appearance: none
   select
     border-radius: var(--grid1⁄4)
+  input[type=checkbox]
+    vertical-align: middle
+    width: var(--grid1)
+    height: var(--grid1)
+    padding: 0
+    position: relative
+    top: -0.1em
+    &:checked
+      background: var(--action-color)
+      border-color: var(--action-color)
+    &:active
+      border-width: var(--grid1⁄4)
+      border-color: var(--meta-text-color)
 
   form .field
     margin: var(--grid1⁄2) 0
@@ -530,3 +545,15 @@ table.row-click
     color: var(--meta-text-color)
   .choices
     color: var(--action-color)
+
+.edit-cohort
+  .puzzle-type
+    height: var(--grid2)
+    .name
+      font-weight: 500
+      display: inline-block
+      width: var(--grid2)
+      margin: 0 var(--grid1⁄4)
+    .desc
+      color: var(--meta-text-color)
+      display: inline

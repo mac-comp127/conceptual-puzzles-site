@@ -23,7 +23,7 @@
                     .group
                       - row_key = "enrollments[#{i}]"
                       = form.hidden_field row_key + "email", value: s.email
-                      - action_key = row_key + "action"
+                      - action_key = row_key + "[action]"
 
                       .choice= labeled_radio_button(form, action_key, :ignore, "Ignore")
                       .choice= labeled_radio_button(form, action_key, :create, "Create")

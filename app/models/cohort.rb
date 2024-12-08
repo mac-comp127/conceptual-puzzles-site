@@ -2,6 +2,9 @@ class Cohort < ApplicationRecord
   has_many :students
   belongs_to :instructor
 
+  has_many :cohort_puzzle_types
+  has_many :puzzle_types, -> { order(:created_at) }, through: :cohort_puzzle_types
+
   validates_presence_of :name, :start_date, :end_date, :instructor_id
   validates_comparison_of :end_date, greater_than: :start_date, message: "must come after start date"
 

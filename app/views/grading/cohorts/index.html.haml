@@ -8,9 +8,7 @@
     - @cohorts.each do |cohort|
       %li
         %a{href: grading_cohort_path(cohort)}
-          = cohort.name
-          –
-          = cohort.instructor.email
+          = cohort.name_and_instructor
         - unless cohort.started?
           .aside (Not started yet)
         - if cohort.ended?

@@ -296,6 +296,38 @@ ALTER SEQUENCE public.attempts_id_seq OWNED BY public.attempts.id;
 
 
 --
+-- Name: cohort_puzzle_types; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.cohort_puzzle_types (
+    id bigint NOT NULL,
+    cohort_id bigint NOT NULL,
+    puzzle_type_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: cohort_puzzle_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.cohort_puzzle_types_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: cohort_puzzle_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.cohort_puzzle_types_id_seq OWNED BY public.cohort_puzzle_types.id;
+
+
+--
 -- Name: cohorts; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -368,7 +400,6 @@ CREATE TABLE public.puzzle_types (
     id bigint NOT NULL,
     name character varying NOT NULL,
     description character varying NOT NULL,
-    enabled boolean DEFAULT false NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -492,6 +523,13 @@ ALTER TABLE ONLY public.attempts ALTER COLUMN id SET DEFAULT nextval('public.att
 
 
 --
+-- Name: cohort_puzzle_types id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cohort_puzzle_types ALTER COLUMN id SET DEFAULT nextval('public.cohort_puzzle_types_id_seq'::regclass);
+
+
+--
 -- Name: cohorts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -540,6 +578,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 ALTER TABLE ONLY public.attempts
     ADD CONSTRAINT attempts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cohort_puzzle_types cohort_puzzle_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cohort_puzzle_types
+    ADD CONSTRAINT cohort_puzzle_types_pkey PRIMARY KEY (id);
 
 
 --
@@ -625,6 +671,27 @@ CREATE INDEX index_attempts_on_puzzle_type_id ON public.attempts USING btree (pu
 --
 
 CREATE INDEX index_attempts_on_student_id ON public.attempts USING btree (student_id);
+
+
+--
+-- Name: index_cohort_puzzle_types_on_cohort_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cohort_puzzle_types_on_cohort_id ON public.cohort_puzzle_types USING btree (cohort_id);
+
+
+--
+-- Name: index_cohort_puzzle_types_on_cohort_id_and_puzzle_type_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_cohort_puzzle_types_on_cohort_id_and_puzzle_type_id ON public.cohort_puzzle_types USING btree (cohort_id, puzzle_type_id);
+
+
+--
+-- Name: index_cohort_puzzle_types_on_puzzle_type_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cohort_puzzle_types_on_puzzle_type_id ON public.cohort_puzzle_types USING btree (puzzle_type_id);
 
 
 --
@@ -729,12 +796,29 @@ ALTER TABLE ONLY public.attempts
 
 
 --
+-- Name: cohort_puzzle_types fk_rails_815fb16720; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cohort_puzzle_types
+    ADD CONSTRAINT fk_rails_815fb16720 FOREIGN KEY (puzzle_type_id) REFERENCES public.puzzle_types(id);
+
+
+--
+-- Name: cohort_puzzle_types fk_rails_be016e5cc6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cohort_puzzle_types
+    ADD CONSTRAINT fk_rails_be016e5cc6 FOREIGN KEY (cohort_id) REFERENCES public.cohorts(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20241208040820'),
 ('20241204054535'),
 ('20241011052856'),
 ('20240925003546'),

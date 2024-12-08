@@ -20,7 +20,7 @@ namespace :db do
     task attempts: :environment do
       ensure_dev_env!
       Attempt.transaction do
-        puzzle_types = PuzzleType.enabled.to_a
+        puzzle_types = PuzzleType.all.to_a
         students = Student.all.order(created_at: :desc).limit(50)
         50.times do
           student = students.sample
