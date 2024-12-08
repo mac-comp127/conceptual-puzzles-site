@@ -378,6 +378,7 @@ DEPENDENCIES
   haml-rails (~> 2.1)
   importmap-rails
   jbuilder
+  mail (~> 2.8)
   nokogiri (~> 1.15.0)
   omniauth-google-oauth2 (~> 1.2)
   omniauth-rails_csrf_protection (~> 1.0)

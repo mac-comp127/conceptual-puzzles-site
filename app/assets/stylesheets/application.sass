@@ -73,6 +73,7 @@ html
   --h1-font-size: 1.6rem
   --h2-font-size: 1.3rem
   --h3-font-size: 1.0rem
+  --small-font-size: 85%
   --paragraph-spacing: 0.8em
   @include responsive(32em)
     --h1-font-size: 1.4rem
@@ -383,6 +384,10 @@ table.row-click
   $form-indent: var(--grid5)
 
   margin: var(--grid1) 0
+  width: fit-content
+  max-width: 32em
+  &.wide
+    max-width: fit-content
 
   input[type=text],
   input[type=date],
@@ -404,16 +409,23 @@ table.row-click
   form .field
     margin: var(--grid1⁄2) 0
 
-  label
-    display: inline-block
-    text-align: right
-    width: $form-indent
+  .field label
     color: var(--meta-text-color)
-    box-sizing: border-box
-    padding-right: var(--grid1⁄4)
 
-  input[type=submit]
-    margin-left: calc($form-indent + var(--grid1⁄4))
+  .hint
+    font-size: var(--small-font-size)
+    color: var(--meta-text-color)
+    margin: var(--grid1⁄2) 0
+    line-height: var(--grid1)
+    ul
+      list-style-type: disc
+      li
+        margin-left: var(--grid1)
+
+  textarea
+    width: 100%
+    &[rows]
+      height: auto
 
   .form-error
     color: var(--error-color)
@@ -422,13 +434,30 @@ table.row-click
     display: inline
 
   .field
+    label
+      display: inline-block
+      text-align: right
+      width: $form-indent
+      box-sizing: border-box
+      padding-right: var(--grid1⁄4)
     &:has(.field_with_errors) label
       $border-size: var(--grid1⁄4)
       border-left: $border-size solid var(--error-color)
     .error
       color: var(--error-color)
-      font-size: 85%
+      font-size: var(--small-font-size)
       margin-left: $form-indent
+
+  .action-buttons
+    text-align: right
+
+  &.compact
+    label
+      width: auto
+    .field
+      display: inline
+    input[type=submit]
+      margin-left: var(--grid1⁄2)
 
 // –––––––––––– View-specific ––––––––––––
 
@@ -487,3 +516,17 @@ table.row-click
   height: 42rem
   border: 1px solid black
   box-sizing: border-box
+
+.enrollment
+  td
+    height: var(--grid2)
+    padding-right: var(--grid1⁄2)
+    .choices
+      margin: 0
+    &.email
+      max-width: var(--grid16)
+      overflow-wrap: break-word
+  .status-already_enrolled, .status-error
+    color: var(--meta-text-color)
+  .choices
+    color: var(--action-color)

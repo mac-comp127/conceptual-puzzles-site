@@ -2,6 +2,10 @@
   = render 'cohort_back_link'
 
 %main
+  %h1
+    = cohort.name_and_instructor
+    Students
+
   %table.index.row-click
     %tr.header
       %th
@@ -23,3 +27,18 @@
         %td.numeric= percent_format send(stat_fn, all_total_scores)
         - PuzzleType.all.each do |type|
           %td.numeric= percent_format send(stat_fn, all_scores_for(puzzle_type: type))
+
+  %h2 Add Students
+
+  .admin-form
+    = form_with url: grading_cohort_enrollment_path do |form|
+      %label Student emails:
+      .field
+        = form.text_area :emails_as_text, rows: 10
+      .hint
+        %ul
+          %li Separate emails with commas and/or line breaks.
+          %li Both “foo@bar.com” and “Foo Bar <foo@bar.com>” will work.
+          %li System will check for matching accounts that either have no cohort yet, or are in a different currently active cohort.
+          %li You will have the chance to review and confirm enrollments.
+      .action-buttons= form.submit 'Check emails', class: :big

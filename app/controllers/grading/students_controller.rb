@@ -6,12 +6,23 @@ class Grading::StudentsController < Grading::BaseController
   def show
   end
 
+  def update
+    unless student.update(student_params)
+      return render :show
+    end
+    redirect_to grading_student_path(student)
+  end
+
 private
 
   def student
     @student ||= Student.find(params[:id])
   end
   helper_method :student
+
+  def student_params
+    params.require(:student).permit([:cohort_id])
+  end
 
   def all_scores_for(puzzle_type:)
     @students.map { |s| s.puzzle_status_for(puzzle_type:).numeric_score }

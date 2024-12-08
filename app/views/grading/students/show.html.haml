@@ -1,5 +1,6 @@
 = content_for :nav do
-  %a.back{href: grading_cohort_students_path(student.cohort)} Students
+  - if student.cohort_id?
+    %a.back{href: grading_cohort_students_path(student.cohort)} Students
 
 %main
   %h1 Puzzle scores for #{student.display_name}
@@ -11,6 +12,11 @@
     .status
       Email:
       .status-message= student.email
+
+  .admin-form.compact
+    = form_with model: [:grading, student] do |form|
+      = field_row form, :select, :cohort_id, 'Cohort', [[]] + Cohort.all.map { |c| [c.name_and_instructor, c.id] }
+      = form.submit "Move"
 
   %table.index
     %tr.header

@@ -5,6 +5,10 @@ class Cohort < ApplicationRecord
   validates_presence_of :name, :start_date, :end_date, :instructor_id
   validates_comparison_of :end_date, greater_than: :start_date, message: "must come after start date"
 
+  def name_and_instructor
+    "#{name} - #{instructor.username}"
+  end
+
   def official_current_time
     @official_current_time ||= time_zone.now
   end

@@ -1,0 +1,36 @@
+%main
+  %h1
+    Edit Enrollment:
+    = cohort.name_and_instructor
+
+  .admin-form.wide.enrollment
+    = form_with url: grading_cohort_enrollment_path do |form|
+      %table
+        - possible_enrollments.each_with_index do |s, i|
+          %tr
+            %td.email
+              = s.email
+            %td{class: "status-#{s.status}"}
+              - case s.status
+                - when :error
+                  ⚠️ Not a valid email address
+
+                - when :already_enrolled
+                  Already enrolled
+
+                - when :can_add
+                  .choices
+                    .group
+                      - row_key = "enrollments[#{i}]"
+                      = form.hidden_field row_key + "email", value: s.email
+                      - action_key = row_key + "action"
+
+                      .choice= labeled_radio_button(form, action_key, :ignore, "Ignore")
+                      .choice= labeled_radio_button(form, action_key, :create, "Create")
+                      - s.existing_accounts.each do |existing|
+                        - move_label = if existing.cohort
+                          - "Move from #{existing.cohort&.name_and_instructor}"
+                        - else
+                          - "Use existing unassigned account"
+                        .choice= labeled_radio_button(form, action_key, "move_#{existing.id}", move_label)
+      .action-buttons= form.submit 'Enroll students', class: :big

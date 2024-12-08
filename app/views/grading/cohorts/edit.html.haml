@@ -19,4 +19,4 @@
       = field_row form, :date_field, :end_date, 'End date'
       = field_row form, :select, :instructor_id, 'Instructor', [[]] + Instructor.all.map { |i| [i.email, i.id]}
 
-      = form.submit 'Save', class: :big
+      .action-buttons= form.submit 'Save', class: :big

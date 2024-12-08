@@ -13,8 +13,9 @@ Rails.application.routes.draw do
     resources :cohorts do
       get '/attempts', to: 'attempts#index'
       get '/students', to: 'students#index'
+      post '/enrollment', to: 'enrollment#update'
     end
-    resources :students, only: [:show]
+    resources :students, only: [:show, :update]
     resources :attempts, only: [:show, :update]
   end
 
