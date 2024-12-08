@@ -1,5 +1,8 @@
 = content_for :nav do
-  %a.back{href: grading_cohorts_path} Cohorts
+  - if cohort.new_record?
+    %a.back{href: grading_cohorts_path} Cohorts
+  - else
+    %a.back{href: grading_cohort_path(cohort)}= cohort.name_and_instructor
 
 %main
   %h1
@@ -18,8 +21,15 @@
       = field_row form, :date_field, :start_date, 'Start date'
       = field_row form, :date_field, :end_date, 'End date'
       = field_row form, :select, :instructor_id, 'Instructor', [[]] + Instructor.all.map { |i| [i.email, i.id]}
+      .hint
+        All instructors have visibility to all cohorts. This setting only changes who sees what
+        by default when they log in.
 
       %h2 Enabled Puzzle Types
+
+      .hint
+        These are the puzzle types currently visible to students.
+        The list can grow throughout the semester.
 
       %ul
         - PuzzleType.all.each do |puzzle_type|
@@ -31,5 +41,12 @@
               .desc= puzzle_type.description
 
       = field_row form, :number_field, :puzzle_score_denominator, "Puzzle score denominator"
+      .hint
+        %ul
+          %li This many puzzles count as full credit.
+          %li Total puzzle score will not exceed 100%.
+          %li
+            If blank, the denominator is the number of currently available puzzles.
+            (Note that this will make the students’ puzzle progress bar move backward throughout the semester.)
 
       .action-buttons= form.submit 'Save', class: :big

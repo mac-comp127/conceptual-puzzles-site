@@ -9,7 +9,7 @@ class Cohort < ApplicationRecord
   validates_comparison_of :end_date, greater_than: :start_date, message: "must come after start date"
 
   def name_and_instructor
-    "#{name} - #{instructor.username}"
+    "#{name} - #{instructor&.username || "???"}"
   end
 
   def official_current_time

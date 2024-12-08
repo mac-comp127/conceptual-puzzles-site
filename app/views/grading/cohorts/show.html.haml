@@ -40,19 +40,21 @@
         - else
           None yet
     .status
-      Scored out of:
+      Puzzle score denominator:
       .status-message
         - if denominator = cohort.puzzle_score_denominator
           = denominator
         - else
-          default
+          All enabled puzzles
 
   %h2 Pending Attempts
   = render "grading/attempts/attempts_table", attempts: @pending_attempts
-  %a.detail-nav{href: grading_cohort_attempts_path(cohort)} All Attempts
+  %a.detail-nav{href: grading_cohort_attempts_path(cohort), "data-turbo-prefetch" => "false"}<
+    All Attempts
 
   %h2 Students
-  %a.detail-nav{href: grading_cohort_students_path(cohort)} All Students
+  %a.detail-nav{href: grading_cohort_students_path(cohort), "data-turbo-prefetch" => "false"}<
+    Roster and Gradebook
 
   - if @error_attempts.any?
     %h2 Recent Errors

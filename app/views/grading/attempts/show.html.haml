@@ -8,7 +8,8 @@
   .metadata-group
     .status
       Name:
-      .status-message= attempt.student.name
+      .status-message
+        = link_to attempt.student.name, grading_student_path(attempt.student)
     .status
       Email:
       .status-message= attempt.student.email

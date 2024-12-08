@@ -24,7 +24,7 @@ module ApplicationHelper
   def filter_link(param, value)
     css_classes = ['choice']
     css_classes << 'active' if params[param] == value.to_s
-    link_to value, { param => value }, "data-turbo-prefetch" => false, class: css_classes
+    link_to value, { param => value }, "data-turbo-prefetch" => "false", class: css_classes
   end
 
   def labeled_radio_button(form, param, value, label)

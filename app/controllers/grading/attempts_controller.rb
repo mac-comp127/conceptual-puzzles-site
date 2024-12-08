@@ -2,7 +2,7 @@ class Grading::AttemptsController < Grading::BaseController
   def index
     @attempts = cohort_attempts
 
-    params[:state] ||= 'submitted'
+    params[:state] ||= 'all'
     unless params[:state] == 'all'
       @attempts = @attempts.where(state: params[:state])
     end
