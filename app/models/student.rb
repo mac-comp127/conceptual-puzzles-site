@@ -16,6 +16,13 @@ class Student < ApplicationRecord
     end
   end
 
+  def unused_puzzle_statuses
+    @unused_puzzle_statuses ||=
+      (PuzzleType.all - puzzle_types)
+        .map { |puzzle_type| puzzle_status_for(puzzle_type:) }
+        .select { |status| status.attempts.any? }
+  end
+
   def puzzle_status_for(puzzle_type:)
     attempts_for_type =
       attempts

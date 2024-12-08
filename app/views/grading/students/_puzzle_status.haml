@@ -1,0 +1,11 @@
+%tr
+  %th= status.puzzle_type.name
+  = render 'puzzle_score_cell', status:
+  %td
+    - status.attempts.each do |attempt|
+      - if [AttemptState.available, AttemptState.submitted].include?(attempt.state)
+        = link_to attempt.state, grading_attempt_path(attempt)
+  %td
+    - status.attempts.each do |attempt|
+      - if AttemptState.graded == attempt.state
+        = link_to attempt.score, grading_attempt_path(attempt)

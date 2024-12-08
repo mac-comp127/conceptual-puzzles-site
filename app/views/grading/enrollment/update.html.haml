@@ -1,3 +1,6 @@
+= content_for :nav do
+  %a.back{href: grading_cohort_students_path(cohort)} Students
+
 %main
   %h1
     Edit Enrollment:
@@ -19,18 +22,23 @@
                   Already enrolled
 
                 - when :can_add
+                  - row_key = "enrollments[#{i}]"
+                  = form.hidden_field row_key + "email", value: s.email
+                  - action_key = row_key + "[action]"
+
                   .choices
                     .group
-                      - row_key = "enrollments[#{i}]"
-                      = form.hidden_field row_key + "email", value: s.email
-                      - action_key = row_key + "[action]"
 
                       .choice= labeled_radio_button(form, action_key, :ignore, "Ignore")
                       .choice= labeled_radio_button(form, action_key, :create, "Create")
-                      - s.existing_accounts.each do |existing|
-                        - move_label = if existing.cohort
-                          - "Move from #{existing.cohort&.name_and_instructor}"
-                        - else
-                          - "Use existing unassigned account"
-                        .choice= labeled_radio_button(form, action_key, "move_#{existing.id}", move_label)
+
+                    - s.existing_accounts.each do |existing|
+                      - move_label = if existing.cohort
+                        - "Move from #{existing.cohort&.name_and_instructor}"
+                      - else
+                        - "Use existing unassigned account"
+                      - move_label += link_to('View', grading_student_path(existing), class: "aside", target: "_new")
+                      .group
+                        .choice= labeled_radio_button(form, action_key, "move_#{existing.id}", move_label.html_safe)
+
       .action-buttons= form.submit 'Enroll students', class: :big
