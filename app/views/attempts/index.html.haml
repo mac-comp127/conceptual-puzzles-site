@@ -8,6 +8,7 @@
     .progress-bar{style: "--progress-bar-value: #{current_student.total_score}"}
       Your puzzle progress:
       = percent_format current_student.total_score
+      .aside (#{current_student.puzzle_score_denominator} puzzles = full credit)
 
   - if current_student.cohort&.started?
     .progress-bar{style: "--progress-bar-value: #{semester_progress}"}

@@ -38,13 +38,12 @@ class Student < ApplicationRecord
     ]
   end
 
+  def puzzle_score_denominator
+    cohort&.puzzle_score_denominator || puzzle_types.count
+  end
+
   def total_score
-    type_count = puzzle_types.count
-    if type_count == 0
-      0
-    else
-      puzzle_statuses.map(&:numeric_score).sum / type_count
-    end
+    [puzzle_statuses.map(&:numeric_score).sum / puzzle_score_denominator.to_f, 1].min
   end
 
   def puzzle_types

@@ -391,9 +391,10 @@ table.row-click
 
   input[type=text],
   input[type=date],
+  input[type=checkbox],
+  input[type=number],
   select,
-  textarea,
-  input[type=checkbox]
+  textarea
     font-family: inherit
     font-size: 100%
     color: var(--text-color)
@@ -557,3 +558,8 @@ table.row-click
     .desc
       color: var(--meta-text-color)
       display: inline
+  .field-puzzle_score_denominator
+    label
+      width: unset
+    input
+      width: var(--grid6)

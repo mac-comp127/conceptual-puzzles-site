@@ -30,4 +30,6 @@
               .name= puzzle_type.name
               .desc= puzzle_type.description
 
+      = field_row form, :number_field, :puzzle_score_denominator, "Puzzle score denominator"
+
       .action-buttons= form.submit 'Save', class: :big

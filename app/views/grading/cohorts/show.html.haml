@@ -6,36 +6,46 @@
     = cohort.name
     .aside= link_to 'Edit', edit_grading_cohort_path(cohort)
 
-  .status
-    Status:
-    - now = cohort.official_current_time
-    - if !cohort.started?
+  .metadata-group
+    .status
+      Status:
+      - now = cohort.official_current_time
+      - if !cohort.started?
+        .status-message
+          Not started yet
+        (begins in #{distance_of_time_in_words(cohort.start_time, now)})
+      - if cohort.in_session?
+        .status-message
+          In session
+        (ends in #{distance_of_time_in_words(cohort.end_time, now)})
+      - if cohort.ended?
+        .status-message
+          Ended
+        (#{distance_of_time_in_words(cohort.end_time, now)} ago)
+    .status
+      Dates:
+      .status-message= cohort.start_date
+      until
+      .status-message= cohort.end_date
+    .status
+      Instructor:
+      .status-message= cohort.instructor.email
+
+  .metadata-group
+    .status
+      Puzzle types:
       .status-message
-        Not started yet
-      (begins in #{distance_of_time_in_words(cohort.start_time, now)})
-    - if cohort.in_session?
+        - if cohort.puzzle_types.any?
+          = cohort.puzzle_types.map(&:name).join(", ")
+        - else
+          None yet
+    .status
+      Scored out of:
       .status-message
-        In session
-      (ends in #{distance_of_time_in_words(cohort.end_time, now)})
-    - if cohort.ended?
-      .status-message
-        Ended
-      (#{distance_of_time_in_words(cohort.end_time, now)} ago)
-  .status
-    Dates:
-    .status-message= cohort.start_date
-    until
-    .status-message= cohort.end_date
-  .status
-    Instructor:
-    .status-message= cohort.instructor.email
-  .status
-    Puzzle types:
-    .status-message
-      - if cohort.puzzle_types.any?
-        = cohort.puzzle_types.map(&:name).join(", ")
-      - else
-        None yet
+        - if denominator = cohort.puzzle_score_denominator
+          = denominator
+        - else
+          default
 
   %h2 Pending Attempts
   = render "grading/attempts/attempts_table", attempts: @pending_attempts

@@ -338,7 +338,8 @@ CREATE TABLE public.cohorts (
     end_date date,
     instructor_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    puzzle_score_denominator integer
 );
 
 
@@ -818,6 +819,7 @@ ALTER TABLE ONLY public.cohort_puzzle_types
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20241208054412'),
 ('20241208040820'),
 ('20241204054535'),
 ('20241011052856'),

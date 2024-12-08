@@ -49,7 +49,7 @@ class Grading::CohortsController < Grading::BaseController
 private
 
   def cohort_params
-    params.require(:cohort).permit([:name, :start_date, :end_date, :instructor_id])
+    params.require(:cohort).permit([:name, :start_date, :end_date, :instructor_id, :puzzle_score_denominator])
   end
 
   def update_puzzle_types!

@@ -1,4 +1,4 @@
-.field
+.field{class: "field-#{field}"}
   = form.label field, "#{label}:"
   = form.send type, field, *args
   - form.object.errors.messages_for(field).each do |error|

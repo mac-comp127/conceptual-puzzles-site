@@ -39,3 +39,5 @@
     %tr.footer
       %th Total
       %td.numeric= percent_format student.total_score, decimal_places: 1
+      %td{colspan: 2}
+        .aside (#{student.puzzle_score_denominator} puzzles are full credit)
