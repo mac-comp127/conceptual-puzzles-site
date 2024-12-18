@@ -5,6 +5,8 @@
   %h1
     = cohort.name_and_instructor
     Students
+  
+  = link_to 'Export as CSV', grading_cohort_students_path(cohort, format: "csv")
 
   %table.index.row-click
     %tr.header

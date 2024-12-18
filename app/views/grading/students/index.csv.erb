@@ -1,0 +1,22 @@
+<%=
+
+  require 'csv'
+
+  columns = {
+    "Email" => lambda(&:email),
+    "Name"  => lambda(&:display_name),
+    "Total" => lambda(&:total_score),
+  }
+  cohort.puzzle_types.each do |type|
+    columns[type.name] = lambda do |student|
+      student.puzzle_status_for(puzzle_type: type).numeric_score
+    end
+  end
+
+  CSV.generate('', headers: columns.map(&:first), write_headers: true) do |csv|
+    @students.order(:email).each do |student|
+      csv << columns.map { |_, value_getter| value_getter.call(student) }
+    end
+  end
+
+%>
