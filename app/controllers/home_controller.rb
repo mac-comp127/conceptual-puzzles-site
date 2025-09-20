@@ -2,8 +2,9 @@ class HomeController < ApplicationController
   def show
     redirect_to(
       if current_user.is_a?(Instructor)
-        if cohort = current_user.cohorts.first
-          grading_cohort_path(cohort)
+        cohorts = current_user.cohorts.active
+        if cohorts.count == 1
+          grading_cohort_path(cohorts.first)
         else
           grading_cohorts_path
         end
