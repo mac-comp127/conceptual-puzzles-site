@@ -25,12 +25,12 @@ private
   end
 
   def all_scores_for(puzzle_type:)
-    @students.map { |s| s.puzzle_status_for(puzzle_type:).numeric_score }
+    @students.map { |s| s.puzzle_status_for(puzzle_type:).numeric_score }.compact
   end
   helper_method :all_scores_for
 
   def all_total_scores
-    @students.map(&:total_score)
+    @students.map(&:total_score).compact
   end
   helper_method :all_total_scores
 

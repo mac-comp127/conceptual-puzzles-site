@@ -50,6 +50,7 @@ class Student < ApplicationRecord
   end
 
   def total_score
+    return nil if puzzle_score_denominator == 0
     [puzzle_statuses.map(&:numeric_score).sum / puzzle_score_denominator.to_f, 1].min
   end
 
