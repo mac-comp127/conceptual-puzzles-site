@@ -189,6 +189,8 @@ main
       width: var(--grid2)
   a
     white-space: nowrap
+  a.button
+    margin: 0 var(--grid1⁄2)
   @include responsive(36em)
     .optional-label
       display: none
@@ -216,6 +218,12 @@ main
   font:
     weight: normal
     size: 1rem
+  form
+    display: inline-block
+    button
+      margin:
+        left: 0
+        right: var(--grid1⁄4)
 
 .sticky
   position: sticky

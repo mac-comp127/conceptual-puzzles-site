@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       get '/attempts', to: 'attempts#index'
       get '/students', to: 'students#index'
       post '/enrollment', to: 'enrollment#update'
+      post '/preview_as_student', to: 'student_preview_mode#enter'
     end
     resources :students, only: [:show, :update]
     resources :attempts, only: [:show, :update]

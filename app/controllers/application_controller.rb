@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   def require_login!(user_type)
     if current_user&.is_a?(user_type)
       @validated_user_type = user_type
+    elsif user_type == Instructor && student_preview_mode?
+      exit_student_preview_mode!
     else
       redirect_to login_path
     end
@@ -25,7 +27,7 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @current_user ||= lambda do
-      if Rails.env.development?
+      if Rails.env.development? && session[:user].nil?
         test_user = ENV["test_user"]
         unless test_user.blank?
           model, id = test_user.split(':')
@@ -50,4 +52,20 @@ class ApplicationController < ActionController::Base
     session[:user_type] = user.class.name
     session[:user_avatar] = avatar_url
   end
+
+  def enter_student_preview_mode!(student)
+    session[:student_preview_as_instructor] = current_instructor.id
+    user_authenticated!(student)
+  end
+
+  def exit_student_preview_mode!
+    instructor = Instructor.find(session[:student_preview_as_instructor])
+    session[:student_preview_as_instructor] = nil
+    user_authenticated!(instructor)
+  end
+
+  def student_preview_mode?
+    !!session[:student_preview_as_instructor]
+  end
+  helper_method :student_preview_mode?
 end

@@ -3,6 +3,11 @@
     = yield :nav
 
   .session
+    - if student_preview_mode?
+      .preview-mode
+        %a.button{href: grading_cohort_path(current_student.cohort), data: { turbo: "false" }}
+          Return to instructor view
+
     - if current_user
       .username
         .optional-label Logged in as:
