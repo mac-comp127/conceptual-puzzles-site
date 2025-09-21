@@ -5,7 +5,7 @@
   %h1
     = cohort.name
     .aside
-      = button_to "Edit", edit_grading_cohort_path(cohort), method: :get
+      = button_to "Edit settings", edit_grading_cohort_path(cohort), method: :get
       = button_to "Preview as student", grading_cohort_preview_as_student_path(cohort)
 
   .metadata-group

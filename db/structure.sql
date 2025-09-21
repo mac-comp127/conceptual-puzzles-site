@@ -493,7 +493,8 @@ CREATE TABLE public.students (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     name character varying,
-    cohort_id bigint
+    cohort_id bigint,
+    in_gradebook boolean DEFAULT true NOT NULL
 );
 
 
@@ -819,6 +820,7 @@ ALTER TABLE ONLY public.cohort_puzzle_types
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20250921015110'),
 ('20241208054412'),
 ('20241208040820'),
 ('20241204054535'),

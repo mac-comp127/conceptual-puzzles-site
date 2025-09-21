@@ -1,6 +1,6 @@
 class Grading::StudentsController < Grading::BaseController
   def index
-    @students = cohort.students.includes(attempts: :puzzle_type)
+    @students = cohort.students.where(in_gradebook: true).includes(attempts: :puzzle_type)
   end
 
   def show
