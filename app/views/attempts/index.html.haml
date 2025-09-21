@@ -32,7 +32,11 @@
             - if AttemptState.queued == latest_state
               .autoreload
             - if [AttemptState.available, AttemptState.graded].include?(latest_state)
-              %a{href: attempt_path(status.latest_attempt)} View puzzle
+              %a{href: attempt_path(status.latest_attempt)}
+                - if latest_state == AttemptState.graded
+                  View solution
+                - else
+                  View puzzle
 
         - if status.latest_attempt&.generator_failed?
           .info= render 'generator_failed', attempt: status.latest_attempt
