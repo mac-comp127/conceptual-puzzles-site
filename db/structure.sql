@@ -402,7 +402,8 @@ CREATE TABLE public.puzzle_types (
     name character varying NOT NULL,
     description character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    display_order integer DEFAULT 0 NOT NULL
 );
 
 
@@ -820,6 +821,7 @@ ALTER TABLE ONLY public.cohort_puzzle_types
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20251204000311'),
 ('20250921015110'),
 ('20241208054412'),
 ('20241208040820'),

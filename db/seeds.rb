@@ -4,12 +4,16 @@
 
 PuzzleType.transaction do
   {
-    ast:  "Drawing ASTs for expressions",
-    bool: "Booleans and conditionals",
-    loop: "While loops and for loops",
-    vars: "Variable scope and lifetime",
-    clos: "Closures and event handling",
-  }.each do |name, description|
-    PuzzleType.find_or_initialize_by(name:).update!(description:, enabled: true)
+    ast:   [0, "Drawing ASTs for expressions"],
+    bool:  [1, "Booleans and conditionals"],
+    loop:  [2, "While loops and for loops"],
+    class: [3, "Class declarations and object modeling"],
+    stack: [4, "Stack frames and objects"],
+    vars:  [5, "Variable scope and lifetime"],
+    rel:   [6, "Class relationships"],
+    type:  [7, "Static and runtime types"],
+    clos:  [8, "Closures and event handling"],
+  }.each do |name, (display_order, description)|
+    PuzzleType.find_or_initialize_by(name:).update!(description:, display_order:)
   end
 end
